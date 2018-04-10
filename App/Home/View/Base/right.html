@@ -1,0 +1,67 @@
+<!--局部右侧内容-->
+<div class="span-right">
+	<!--TV内容-->
+	<php>$content = load_block('index_prize_video', true);</php>
+	<if condition="content">
+		<php>$arr = explode('@@', $content);</php>
+		<div class="sj-index-tv mb-20">
+			<a href="{:U('index/prize_video', array('mark'=>$arr[0]))}">
+				<span class="sj-index-tv-span">
+					<img src="{$arr[2]}" style="width:195px;height:130px;" alt="">
+					
+				</span>
+				<p class="sj-index-tv-p bg-hui">{$arr[1]} <span class="ml-10 player-span"></span></p>
+			</a>
+		</div>
+	</if>
+
+	<!--TV内容end-->
+
+	<!--报名内容-->
+	<div class="an-niu clearfix">
+		<a href="{:U('home/material/sort')}" class="sj-an-tou mr-9"></a>
+		<a href="{:U('home/rater/index')}" class="sj-an-pw"></a>
+	</div>
+	<!--报名内容end-->
+	<div class="sj-bor-bott"></div>
+	<!--lunbo内容-->
+	<div id="myCarousel1" class="carousel slide mb-30">
+		<div class="carousel-inner">
+			<volist name=":load_column('index_person_prize_slide', 1)" id="vo" key="k" empty="暂时没有数据" >
+				<if condition="$k eq 1 ">
+					<div class="active item">
+				<else />
+					<div class="item">
+				</if>
+				<if condition="isset($vo['asset'])">
+					<a href="{$vo['address']}" target="_blank"><img src="__UPLOAD__{:$vo['asset']['file_path'].$vo['asset']['file_name']}" style="width:195px;height:150px;" title="{$vo['title']}" alt="{$vo['title']}"/></a>
+					<div class="carousel-caption bg-hui">
+						<p>{$vo['title']}</p>
+					</div>
+				</if>	
+				</div>
+			</volist>
+		</div>
+	</div>
+	<!--lunbo内容end-->
+	<!--lunbo内容-->
+	<div id="myCarousel2" class="carousel slide">
+		<div class="carousel-inner">
+			<volist name=":load_column('index_company_prize_slide', 1)" id="vo" key="k" empty="暂时没有数据" >
+				<if condition="$k eq 1 ">
+					<div class="active item">
+				<else />
+					<div class="item">
+				</if>
+				<if condition="isset($vo['asset'])">
+					<a href="{$vo['address']}" target="_blank"><img src="__UPLOAD__{:$vo['asset']['file_path'].$vo['asset']['file_name']}" style="width:195px;height:150px;" title="{$vo['title']}" alt="{$vo['title']}"/></a>
+					<div class="carousel-caption bg-hui">
+						<p>{$vo['title']}</p>
+					</div>
+				</if>	
+				</div>
+			</volist>
+		</div>
+	</div>
+	<!--lunbo内容end-->
+</div>

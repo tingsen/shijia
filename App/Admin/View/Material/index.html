@@ -1,0 +1,138 @@
+<script style="text/javascript">
+	//删除方法单个
+	function ajax_drop() {
+		var ids = $(this).attr('val');
+		var url = "{:U('drop')}";
+		if(!confirm('确认执行这个操作吗?')){
+			return false;
+		}
+		sj.ajax_delete(url, ids, 'material');
+	}
+
+	//删除多个
+	function ajax_drop_multiple() {
+		var ids = sj.ckbox_record("input:checkbox[name='checkbox']");
+		if(ids != ''){
+			if(!confirm("确定要删除选中的内容吗？")){
+				return false;
+			}
+			var url = "{:U('drop')}";
+			sj.ajax_delete(url, ids, 'material');
+		}else{
+			alert("请选择要删除的内容！");
+		}
+	}
+
+	//显示评委列表
+	function show_raters_box(){
+		var m_id = $(this).attr('m_id');
+		var box = $(this).next();
+		if(box.is(':hidden')) {
+			box.show();
+		}else{
+			box.hide();
+		}
+	}
+
+	//关闭查看详情box
+	function close_btn(){
+	    $(this).parent().hide();
+	}
+
+
+</script>
+
+<div class="row">
+	<div class="col-xs-2">
+		<include file="Base/_left_nav" />
+	</div>
+	<div class="col-xs-10">
+		<include file="_toolbar" />
+
+		<div class="guide-box">
+			<include file="Base/_select_box" />
+			<div class="right_operation clearfix">
+				<div class="operate_box clearfix">
+					<a href="{:U('add')}">+新建</a>
+					<a href="#ajax_drop_multiple" class="ajax-hash">删除</a>
+					<a href="{:U('export', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="">导出</a>
+				</div>
+			</div>
+			
+			<table class="table table-striped">
+			  <thead>
+				<tr>
+				  <th></th>
+				  <th>编号:</th>
+				  <th>名称:</th>
+				  <th>头像/log:</th>
+				  <th>所属奖项:</th>
+				  <th>地区:</th>
+				  <th>投票数:</th>
+				  <th>评委姓名:</th>
+				  <th>状态:</th>
+				  <th>年份:</th>
+				  <th>创建时间:</th>
+				  <th>操作:</th>
+				</tr>
+			  </thead>
+			  <tbody id="user_list">
+				<foreach name='materials' key='k' item='v'>
+					<tr id="material_box_{$v.id}">
+					  <td><input type="checkbox" name="checkbox" value="{$v.id}"></td>
+					  <td>{$v.m_id}</td>
+					  <td><a href="{:U('show', array('id'=>$v['id']))}" title="{$v.name}" target="_blank">{$v.name|msubstr=###,0,6,'utf-8',true}</a></td>
+					  <td>
+						<if condition="empty($v['avatar'])">
+						  无
+						<else />
+						  <img src="__UPLOAD__{:$v['avatar']['file_path'].$v['avatar']['file_name']}" width="120" />
+						</if>
+					  </td>
+					  <td>{$v.prize_id|prize_name}</td>
+					  <td>{$v.province|show_city}</td>
+					  <td style="position:relative">
+						  {$v.chosen_count} <a href="#show_raters_box" class="ajax-hash" m_id="{$v.id}">>></a>
+						  <div class="hide-js" style="width:200px;background-color: #ccc;position:absolute;right:30px;top:30px;border:1px solid;z-index:100;padding:10px 5px;">
+						      <a href="#close_btn" class="close ajax-hash" aria-hidden="true">&times;</a>
+							<foreach name="v['raters']" item="vo" >
+								{$vo['name']}&nbsp;&nbsp;
+							</foreach>	
+						  </div>
+					  </td>
+					  <td>
+						  <php>
+						  $map = array();
+						  $map['mid'] = $v['id'];
+						  $mr = $material_rater->where($map)->select(); 
+						  </php>
+						<foreach name='mr' item='r'>
+							<php>$rater = $rater_m->find($r['rid'])</php>
+							{$rater['name']}<br />
+						</foreach>
+					  </td>
+					  <td>
+						<switch name="v['state']">
+							<case value="0">未通过</case>
+							<case value="1">草稿</case>
+							<case value="2">提交</case>
+							<case value="3">审核中</case>
+							<case value="10">已通过</case>
+							<case value="11">十佳</case>
+							<default />未定义
+						</switch>
+					  </td>
+					  <td>{$v.year}</td>
+					  <td>{$v['created_on']|date='Y-m-d', ###}</td>
+					  <td><a href="{:U('admin/material/edit', array('id'=>$v['id']))}" class="">编辑</a> | <a href="#ajax_drop" class="ajax-hash" val="{$v['id']}">删除</a></td>
+
+					</tr>
+				</foreach>
+			  </tbody>
+			</table>
+			<div>
+				<ul class="pagination">{$page}</ul>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,79 @@
+<div class="list-group clearfix">
+	<div class="btn-group">
+		年份:
+	</div>
+	<div class="btn-group">
+		<a href="{:U('index', array('year'=>'', 'prize_id'=>$prize_id, 'state'=>$state, 'r_name'=>$r_name, 'order'=>$order))}" class="btn btn-default btn-xs {:$year=='' ? 'active':''}">全部</a>
+	</div>
+	<div class="btn-group">
+		<a href="{:U('index', array('year'=>2014, 'prize_id'=>$prize_id, 'state'=>$state, 'r_name'=>$r_name, 'order'=>$order))}" class="btn btn-default btn-xs {:$year=='2014' ? 'active':''}">2014届</a>
+	</div>
+	<div class="btn-group">
+		<a href="{:U('index', array('year'=>2015, 'prize_id'=>$prize_id, 'state'=>$state, 'r_name'=>$r_name, 'order'=>$order))}" class="btn btn-default btn-xs {:$year=='2015' ? 'active':''}">2015届</a>
+	</div>
+
+	<div class="btn-group">
+		<a href="{:U('index', array('year'=>2016, 'prize_id'=>$prize_id, 'state'=>$state, 'r_name'=>$r_name, 'order'=>$order))}" class="btn btn-default btn-xs {:$year=='2016' ? 'active':''}">2016届</a>
+	</div>
+</div>
+
+<div class="list-group clearfix">
+	<div class="btn-group">
+		奖项:
+	</div>
+	<div class="btn-group">
+		<a href="{:U('index', array('year'=>$year, 'prize_id'=>'', 'state'=>$state, 'r_name'=>$r_name, 'order'=>$order))}" class="btn btn-default btn-xs {$prize_id=='' ? 'active':''}">全部</a>
+	</div>
+	<volist name=":prize_options()" id="prize">
+		<div class="btn-group">
+			<a href="{:U('index', array('year'=>$year, 'prize_id'=>$prize['id'], 'state'=>$state, 'r_name'=>$r_name, 'order'=>$order))}" class="btn btn-default btn-xs {:$prize_id==$prize['id'] ? 'active':''}">{$prize['name']}</a>
+		</div>
+	</volist>
+</div>
+
+<div class="list-group clearfix">
+	<div class="btn-group">
+		评委姓名:
+	</div>
+	<div class="btn-group">
+		<div class="btn-group">
+			<a href="{:U('index', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>$state, 'r_name'=>'', 'order'=>$order))}" class="btn btn-default btn-xs {:$r_name=='' ? 'active':''}">全部</a>
+		</div>
+		<volist name="all_raters" id="d">
+			<div class="btn-group">
+				<a href="{:U('index', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>$state, 'r_name'=>$d['name'], 'order'=>$order))}" class="btn btn-default btn-xs {:$r_name==$d['name'] ? 'active':''}">{$d['name']}</a>
+			</div>		
+		</volist>
+	</div>
+</div>
+<!--
+<div class="list-group clearfix">
+	<div class="btn-group">
+		状态:
+	</div>
+	<div class="btn-group">
+		<a href="{:U('index', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>'', 'r_name'=>$r_name, 'order'=>$order))}" class="btn btn-default btn-xs {$state=='' ? 'active':''}">全部</a>
+	</div>
+	<div class="btn-group">
+	    <a href="{:U('index', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>1, 'r_name'=>$r_name, 'order'=>$order))}" class="btn btn-default btn-xs {$state=='1' ? 'active':''}">已评选</a>
+	</div>
+	<div class="btn-group">
+	    <a href="{:U('index', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>0, 'r_name'=>$r_name, 'order'=>$order))}" class="btn btn-default btn-xs {$state=='0' ? 'active':''}">未评选</a>
+	</div>
+
+</div>
+
+<div class="list-group clearfix">
+	<div class="btn-group">
+		排序:
+	</div>
+	<div class="btn-group">
+		<div class="btn-group">
+			<a href="{:U('index', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>$state, 'r_name'=>$r_name, 'order'=>'create'))}" class="btn btn-default btn-xs {:$order=='' ? 'active':''}">创建时间</a>
+		</div>
+		<div class="btn-group">
+			<a href="{:U('index', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>$state, 'r_name'=>$r_name, 'order'=>'vote'))}" class="btn btn-default btn-xs {:$order=='vote' ? 'active':''}">投票数</a>
+		</div>
+	</div>
+</div>
+-->

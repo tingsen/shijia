@@ -1,0 +1,31 @@
+<!--局部内容-->
+<div class="clearfix pt-40">
+	<!--局部大左侧内容-->
+	<div class="span-online-daleft h-430">
+		<!--视频内容-->
+		<embed src="{$wish['swf']}" allowFullScreen="true" quality="high" width="700" height="480" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+	</div>
+	<!--局部大左侧内容结束-->
+	<!--局部右侧内容-->
+	<div class="span-right">
+		<div class="p-7 bor-all bor-c-hui">
+			<!--寄语人图片-->
+			<div class="sj-pw-img">
+				<img src="__PUBLIC__/images/{$wish['avatar']}" alt="">
+			</div>
+			<!--寄语人图片结束-->
+			<!--简介内容-->
+			<div class="sj-jy-text">
+				<p class="c-huihui"><strong>{$wish['name']} </strong> <br><br>
+					{$wish['remark']}
+				</p>
+			</div>
+			<!--简介内容end-->
+		</div>
+	</div>
+</div>
+<!--局部内容结束-->
+<div class="sj-bor-bott bor-c-hong"></div>
+<!--友情链接-->
+	<include file="Base/friendly_link" />
+<!--友情链接结束-->

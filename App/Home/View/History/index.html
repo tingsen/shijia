@@ -1,0 +1,112 @@
+<!--局部内容-->
+<div class="clearfix pt-40">
+	<!--局部左侧内容-->
+	<div class="span-online-left">
+		<!--局部左侧链接内容-->
+		<include file="left_nav" />
+		<!--局部左侧链接内容结束-->
+		<!--局部左侧图片内容-->
+		<div class="online-left-img"><img src="__PUBLIC__/images/lijiesj-leftimg.png" alt=""></div>
+		<!--局部左侧链接内容结束-->
+	</div>
+	<!--局部居中内容-->
+	<div class="span-online-center">
+		<div class="sj-lunbo">
+			<!--局部居中新闻列表内容-->
+			<div class="w-450 center-block">
+				<!--局部居中工作机会内容-->
+				<span class="bor-bott-box mb-20">
+					<h5 class="m-0 mb-10 c-hong fw-700">{$year}年度中国工业设计{:prize_name($prize_id, $year)}</h5>
+				</span>
+
+				<div class="clearfix">
+					<volist name="materials" id="vo" key="k" empty="暂时没有数据" >
+						<switch name="vo['prize_id']">
+							<case value="1">
+								<div class="pull-left w-100 mr-10 h-230">
+									<a href="{:U('show', array('id'=>$vo['id']))}" target="_blank">
+									<div class="center-block lijie-logo-gr">
+										<if condition="isset($vo['avatar'])">
+											<img src="__UPLOAD__{:$vo['avatar']['file_path'].$vo['avatar']['file_name']}" style="width:100px;height:140px;" alt="{$vo['name']}" class="mb-5">
+										</if>
+										<p class="text-center c-huihui">{$vo['name']}</p>
+										<p class="text-left c-huihui">{$vo['position']}</p>
+									</div>
+									</a>
+								</div>	
+							</case>
+							<case value="2">
+								<div class="pull-left w-100 mr-10 h-230">
+									<a href="{:U('show', array('id'=>$vo['id']))}" target="_blank">
+									<div class="center-block lijie-logo-gr">
+										<if condition="isset($vo['avatar'])">
+											<img src="__UPLOAD__{:$vo['avatar']['file_path'].$vo['avatar']['file_name']}" style="width:100px;height:140px;" alt="{$vo['name']}" class="mb-5">
+										</if>
+										<p class="text-center c-huihui">{$vo['name']}</p>
+										<p class="text-left c-huihui">{$vo['position']}</p>
+									</div>
+									</a>
+								</div>	
+							</case>
+							<case value="3">
+								<if condition="$year eq 2011" >
+									<div class="pull-left w--50 h-100">
+										<a href="{:U('show', array('id'=>$vo['id']))}" target="_blank">
+										<div class="center-block lijie-logo-qy">
+											<if condition="isset($vo['avatar'])">
+												<img src="__UPLOAD__{:$vo['avatar']['file_path'].$vo['avatar']['file_name']}" style="width:125px;height:55px;" alt="{$vo['name']}" class="mb-5">
+											</if>
+											<p class="text-center c-huihui">{$vo['name']}</p>
+										</div>
+										</a>
+									</div>	
+								<else />
+									<div class="pull-left w-100 mr-10 h-230">
+										<a href="{:U('show', array('id'=>$vo['id']))}" target="_blank">
+										<div class="center-block lijie-logo-gr">
+											<if condition="isset($vo['avatar'])">
+												<img src="__UPLOAD__{:$vo['avatar']['file_path'].$vo['avatar']['file_name']}" style="width:100px;height:140px;" alt="{$vo['name']}" class="mb-5">
+											</if>
+											<p class="text-center c-huihui">{$vo['name']}</p>
+											<p class="text-left c-huihui">{$vo['position']}</p>
+										</div>
+										</a>
+									</div>	
+								</if>
+							</case>
+							<case value="4">
+								<div class="pull-left w--50 h-100">
+									<a href="{:U('show', array('id'=>$vo['id']))}" target="_blank">
+									<div class="center-block lijie-logo-qy">
+										<if condition="isset($vo['avatar'])">
+											<img src="__UPLOAD__{:$vo['avatar']['file_path'].$vo['avatar']['file_name']}" style="width:125px;height:55px;" alt="{$vo['name']}" class="mb-5">
+										</if>
+										<p class="text-center c-huihui">{$vo['name']}</p>
+									</div>
+									</a>
+								</div>		
+							</case>
+							<case value="5">
+								<div class="pull-left w--50 h-100">
+									<a href="{:U('show', array('id'=>$vo['id']))}" target="_blank">
+									<div class="center-block lijie-logo-qy">
+										<if condition="isset($vo['avatar'])">
+											<img src="__UPLOAD__{:$vo['avatar']['file_path'].$vo['avatar']['file_name']}" style="width:125px;height:55px;" alt="{$vo['name']}" class="mb-5">
+										</if>
+										<p class="text-center c-huihui">{$vo['name']}</p>
+									</div>
+									</a>
+								</div>
+							</case>
+							<default />default
+						</switch>
+					</volist>
+				</div>
+				<!--局部居中工作机会内容结束-->
+			</div>
+			<!--局部居中新闻列表内容结束-->
+		</div>
+	</div>
+	<include file="Base/right" />
+</div>
+<!--局部内容结束-->

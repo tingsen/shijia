@@ -1,0 +1,13 @@
+<li id="material_checked_box_{$v.id}" class="clearfix">
+	<span class="sj-qiye-img">
+		<a href="javascript:void(0);" class="" onclick="show_info(this);" val="{$v.id}"><img src="__UPLOAD__{:$v['avatar']['file_path'].$v['avatar']['file_name']}" width="90" alt="{$v.name}"></a>
+	</span>
+	<!--企业编号、名字-->
+	<p class="sj-qiye-title">{$v['m_id']} {$v['name']}</p>
+	<!--如果评委是已提交状态或不在此奖项范围内,则不显示-->
+	<if condition="($data['rater_state'] eq 1 AND in_array($v['prize_id'], $data['rater_prizes']) AND $data['prize_state'] eq 0)">
+		<a herf="javascript:void(0);" onclick="ajax_set_applicant(this)" val="{$v.id}" prize_id="{$data['prize_id']}" event="drop" class="btn btn-hui btn-xs sj-ps-ann">删除</a>
+	</if>
+</li>
+
+

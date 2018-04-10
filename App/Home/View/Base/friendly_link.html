@@ -1,0 +1,22 @@
+<div class="clearfix">
+	<div class="span-tong clearfix">
+		<p style="margin:0;padding:0;">友情链接</p>
+		<div class="clearfix">
+			<volist name=":load_column('index_friendly_link_block', 6)" id="vo" key="k" empty="暂时没有数据" >
+				<if condition="isset($vo['asset'])">
+					<a href="{$vo['address']}" class="sj-yqlj" target="_blank"><img src="__UPLOAD__{:$vo['asset']['file_path'].$vo['asset']['file_name']}" title="{$vo['title']}" alt="{$vo['title']}"></a>
+				</if>	
+			</volist>
+		</div>
+	</div>
+	<div class="span-tong clearfix">
+		<p style="margin:0;padding:0;">媒体支持</p>
+		<div class="clearfix">
+			<volist name=":load_column('index_media_support_block', 6)" id="vo" key="k" empty="暂时没有数据" >
+				<if condition="isset($vo['asset'])">
+					<a href="{$vo['address']}" class="sj-yqlj" target="_blank"><img src="__UPLOAD__{:$vo['asset']['file_path'].$vo['asset']['file_name']}" title="{$vo['title']}" alt="{$vo['title']}"></a>
+				</if>	
+			</volist>
+		</div>
+	</div>
+</div>

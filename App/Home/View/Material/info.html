@@ -1,0 +1,166 @@
+<link href="__PUBLIC__/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+<!--上传-->
+<script src="__PUBLIC__/plug/jquery.jUploader-1.01.js"></script>
+<script src="__PUBLIC__/plug/jquery.validate.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap-datetimepicker.min.js"></script>
+<!--<script src="__PUBLIC__/js/jquery.easydropdown.js"></script>-->
+
+<script type="text/javascript">
+
+//ajax二级联动获取城市列表
+function ajax_fetch_city(pid,cid) {
+	var url = "{:U('ajax_change_city')}";
+	$.get(url, {pid: pid, cid: cid}, function(result){
+		$('#city_box').html(result);
+	});
+}
+
+// 全局配置（这样就不必每次初始化时都加上下面的设置）
+$.jUploader.setDefaults({
+	cancelable: true, // 可取消上传
+	allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'], // 只允许上传图片
+	messages: {
+		upload: '上传图片',
+		cancel: '取消',
+		width: '100%',
+		display: 'block',
+		emptyFile: "{ file } 为空，请选择一个文件.",
+		invalidExtension: "{file} 后缀名不合法. 只有 {extensions} 是允许的.",
+		onLeave: "文件正在上传，如果你现在离开，上传将会被取消。"
+	}
+});
+$(function(){
+	//初始化把cover_id设为0
+	//$("input[name='cover_id']").val('');
+
+	$.jUploader({
+		button: 'upload_cover', // 这里设置按钮id
+		action: '{:U('Home/Upload/save_cover', array('id'=>$post['m_id'], type=>'Material', 'size'=>1024*1024/2))}', // 这里设置上传处理接口
+		// 开始上传事件
+		onUpload: function (fileName) {
+			$('#tip').text('正在上传 ' + fileName + ' ...');
+		},
+
+		// 上传完成事件
+		onComplete: function (fileName, response) {
+			if(response.state)
+			{
+				$('#tip').text(fileName + ' 上传成功。');
+				//记录封面id
+				$("input[name='cover_id']").val(response.asset_id);
+				var url = response.result.savepath + response.result.savename;
+				$('#show_cover').html('<img class="sj-images" src="__UPLOAD__'+ url +'" width="120" />');
+			}else{
+				$('#tip').text(response.info);
+				$('#show_cover').html('');
+			}
+		},
+		// 取消上传事件
+		onCancel: function (fileName) {
+			$('#tip').text(fileName + ' 上传取消。');
+		},
+		// 系统信息显示（例如后缀名不合法）
+		showMessage: function (message) {
+			$('#tip').text(message);
+		}
+	});
+	//下拉框
+	/*先注掉,城市选择太长了,样式出问题
+	var $selects = $('select');				
+		$selects.easyDropDown({
+			cutOff: 10,
+			wrapperClass: 'my-dropdown-class',
+			onChange: function(selected){
+				// do something
+			}
+	});
+	 */
+
+	$('.form_date').datetimepicker({
+        language:  'en',
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 4,
+		minView: 2,
+		forceParse: 0
+		});
+
+		//城市选择
+		$(":input[name='province']").change(function(){
+			var pid = $(this).val();
+			ajax_fetch_city(pid, 0);
+		});
+
+		//刷新后如果是编辑状态则加载城市
+		<notempty name="material['province']">
+			ajax_fetch_city("{$material['province']|intval}", "{$material['city']|intval}");
+		</notempty>
+
+})
+
+</script>
+<!--局部内容-->
+<div class="clearfix pt-40">
+	<!--局部左侧内容-->
+	<div class="span-online-left">
+		<!--局部左侧链接内容-->
+		<div class="pl-20">
+			<h5 class="m-0 c-hong mb-20">在线报名</h5>
+		</div>
+		<!--局部左侧链接内容结束-->
+		<!--局部左侧图片内容-->
+		<div class="online-left-img"><img src="__PUBLIC__/images/online-leftimg.png" alt=""></div>
+		<!--局部左侧链接内容结束-->
+	</div>
+	<!--局部居中内容-->
+	<div class="span-online-center">
+		<div class="sj-lunbo">
+			<!--局部居中面包屑导航内容-->
+			<div class="nav-mbx mb-50">
+				<a class="nav-mbx-a nav-mbx-first">1 登录注册</a>
+				<a class="nav-mbx-a">2 申请奖项选择</a>
+				<a class="nav-mbx-a current">3 基础信息填写</a>
+				<a class="nav-mbx-a">4 文件下载</a>
+			</div>
+			<!--局部居中面包屑导航内容结束-->
+			<!--局部居中基本信息列表内容-->
+			<div class="w-450 center-block">
+				<form action="{:U('home/material/major')}" class="form-horizontal" id="validate_form" role="form" method="post">
+					<div class="form-group">
+						<div class="col-xs-12">
+							<p class="c-huihui">{:system_value('current_year')}年度中国工业设计{$prize|prize_name}申报基础信息填写:</p>
+						</div>
+					</div>
+					<input type="hidden" name="prize_id" value="{$prize}" />
+					<input type="hidden" name="material_id" value="{$material_id}" />
+					<input type="hidden" name="cover_id" value="{$material['cover_id']}" />
+					<input type="hidden" name="old_cover_id" value="{$material['cover_id']}" />
+					<if condition="$prize == 1">
+						<include file="info_educate" />
+					<elseif condition="$prize == 2"/>
+						<include file="info_elite" />
+					<elseif condition="$prize == 3"/>
+						<include file="info_designer" />
+					<elseif condition="$prize == 4"/>
+						<include file="info_company" />
+					<elseif condition="$prize == 5"/>
+						<include file="info_firm" />
+					</if>
+				 <!--承诺书的框结束-->
+				  <div class="form-group">
+					<div class="col-sm-offset-2 col-xs-8">
+					  <a href="{:U('home/material/sort')}" class="btn btn-danger w-90">上一页</a>
+					  <input type="submit" name="submit" value="下一页" class="btn btn-danger w-90" />
+					</div>
+				  </div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<include file="Base/right" />
+</div>
+<!--局部内容结束-->

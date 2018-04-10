@@ -1,0 +1,44 @@
+<div class="sj-ps-ttitle c-hui"><span>编号：{$material['m_id']}</span><span class="mr-0">名称: {$material['name']}</span></div>
+<a class="btn btn-danger w-90 pull-right" href="javascript:void(0);" onclick="reload_page();">预审标准</a>
+<div class="sj-ps-center-nr">
+	<div class="sj-ps-div-bor pt-0 clearfix">
+		<span class="sj-ps-qiye-daimg">
+			<img src="__UPLOAD__{:$material['avatar']['file_path'].$material['avatar']['file_name']}" width="125" alt="{$material['name']}">
+		</span>
+		<span class="sj-xx-text-d">
+			<span> <strong>基础信息：</strong> </span><br>
+			<span>企业名称：</span><span class="lh-25">{$material['name']}</span><br>
+				<span>业务范围：</span><span class="lh-25">{$material['scope']}</span>
+				<span>所有制性质：</span><span class="lh-25">{$material['nature']|nature_name}</span><br>
+				<span>网址：</span><span class="lh-25">{$material['web_url']}</span><br>
+				<span>法定代言人：</span><span class="lh-25">{$material['legal_preson']}</span>
+				<span>成立时间：</span><span class="lh-25">{$material['founded']}</span><br>
+				<span>设计部负责人：</span><span class="lh-25">{$material['head_preson']}</span>
+				<span>职工总数：</span><span class="lh-25">{$material['staff_count']}</span><br>
+				<span>工业设计人数：</span><span class="lh-25">{$material['design_count']}</span><br>
+				<span>资产总额（万元）：</span><span class="lh-25">{$material['total_assets']}</span>
+				<span>年销售收入（万元）：</span><span class="lh-25">{$material['annual_revenue']}</span><br>
+				<span>研发投入（万元）：</span><span class="lh-25">{$material['rd_put']}</span>
+				<span>工业设计投入（万元）：</span><span class="lh-25">{$material['id_put']}</span><br />
+				<span class="c-lan">效益数据为2013年度企业效益</span>
+		</span>
+	</div>
+	<div class="sj-ps-div-bor clearfix">
+		<span class="sj-xx-text-d">
+			<span> <strong>企业简介：</strong> </span><br>
+				<span class="lh-25">{$material['description']}</span>
+		</span>
+	</div>
+	<div class="sj-ps-div-bor clearfix">
+		<span class="sj-xx-text-d">
+			<span> <strong>设计创新体系：</strong> </span><br>
+			<span class="lh-25">{$material['content']}</span>
+		</span>
+	</div>
+	<div class="sj-ps-div clearfix">
+		<div class="sj-xx-text-d">
+			<span> <strong>重点设计创新成果：</strong> </span><br>
+			<span class="lh-25">{$material['fruit']}</span>
+		</div>
+	</div>
+</div>

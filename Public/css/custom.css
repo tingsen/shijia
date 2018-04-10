@@ -1,0 +1,153 @@
+/*页面主体*/
+/* margin padding */
+.m-0{margin:0;}
+.m-5{margin:5px;}
+.m-10{margin:10px;}
+.m-15{margin:15px;}
+.m-20{margin:20px;}
+.mt-5{margin-top:5px;}
+.mb-5{margin-bottom:5px;}
+.ml-5{margin-left:5px;}
+.mr-5{margin-right:5px;}
+.mt-10{margin-top:10px;}
+.mb-10{margin-bottom:10px;}
+.ml-10{margin-left:10px;}
+.mr-10{margin-right:10px;}
+.mt-15{margin-top:15px;}
+.mb-15{margin-bottom:15px;}
+.ml-15{margin-left:15px;}
+.mr-15{margin-right:15px;}
+.mt-20{margin-top:20px;}
+.mt-50{margin-top:50px;}
+.mb-20{margin-bottom:20px;}
+.ml-19{margin-left:19px;}
+.ml-20{margin-left:20px;}
+.mr-20{margin-right:20px;}
+.mt-30{margin-top:30px;}
+.mb-30{margin-bottom:30px;}
+.ml-30{margin-left:30px;}
+.ml-40{margin-left:40px;}
+.ml-50{margin-left:50px;}
+.mr-30{margin-right:30px;}
+.ml-90{margin-left:90px;}
+.ml-93{margin-left:93px;}
+.p-0{padding:0;}
+.pt-0{padding-top:0;}
+.pr-0{padding-top:0;}
+.pb-0{padding-top:0;}
+.pl-0{padding-top:0;}
+.p-1{padding:1px;}
+.p-5{padding:5px;}
+.p-10{padding:10px;}
+.p-15{padding:15px;}
+.p-20{padding:20px;}
+.pt-5{padding-top:5px;}
+.pb-5{padding-bottom:5px;}
+.pl-5{padding-left:5px;}
+.pr-5{padding-right:5px;}
+.pt-10{padding-top:10px;}
+.pb-10{padding-bottom:10px;}
+.pl-10{padding-left:10px;}
+.pr-10{padding-right:10px;}
+.pt-15{padding-top:15px;}
+.pb-15{padding-bottom:15px;}
+.pl-15{padding-left:15px;}
+.pr-15{padding-right:15px;}
+.pt-20{padding-top:20px;}
+.pb-20{padding-bottom:20px;}
+.pl-20{padding-left:20px;}
+.pl-30{padding-left:30px;}
+.pl-40{padding-left:40px;}
+.pl-50{padding-left:50px;}
+.pr-20{padding-right:20px;}
+
+
+
+
+/*--后台样式 begin---*/
+/* --后台左侧导航样式-- */
+
+.list-group-item {
+	padding: 10px;
+}
+.list-group-item .dropdown-toggle {
+	color:#fff;
+	padding:5px 10px;
+}
+.list-group-header {
+	padding:5px 30px 5px 15px;
+}
+.bs-docs-sidenav {
+    background-color: #FFFFFF;
+    margin: 30px 0 0;
+    padding: 0;
+    width: 150px;
+}
+.bs-docs-sidenav > li > a {
+    border: 1px solid #E5E5E5;
+    display: block;
+    margin: 0 0 -1px;
+    padding: 8px 14px !important;
+}
+.bs-docs-sidenav > .active {
+    border-left: 3px solid #DD4B39;
+}
+.bs-docs-sidenav > .active > a {
+    border-left: 0 none !important;
+    padding: 8px 14px 8px 12px !important;
+    position: relative;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+    z-index: 2;
+}
+.icon-chevron-right {
+    background-position: -456px -72px;
+}
+.bs-docs-sidenav .icon-chevron-right {
+    float: right;
+    margin-right: -6px;
+    margin-top: 2px;
+    opacity: 0.25;
+}
+.bs-docs-sidenav > li > a:hover {
+    background-color: #F5F5F5;
+}
+.bs-docs-sidenav a:hover .icon-chevron-right {
+    opacity: 0.5;
+}
+.bs-docs-sidenav .active .icon-chevron-right, .bs-docs-sidenav .active a:hover .icon-chevron-right {
+    background-image: url("/images/glyphicons-halflings.png") !important;
+}
+.bs-docs-sidenav.affix {
+    top: 60px;
+}
+.bs-docs-sidenav.affix-bottom {
+    bottom: 270px;
+    position: absolute;
+    top: auto;
+}
+
+.red {
+	color: #FF3333;
+}
+.gray {
+	color: #666666;
+}
+.black {
+	color: #000;
+}
+.sub_operation a{color:#000;}
+.operate_box{float:left;display:inline;margin-right:10px;border:1px solid #ccc;border-radius:3px;}
+.operate_box a{display:inline-block;width:75px;height:27px;line-height:27px;text-align:center;background:url(../../Public/images/operate_bg.gif) repeat-x;float:left;}
+.operate_box a:hover{background:#000;color:#fff;}
+.left_operation{float:left;display:inline;margin-right:20px;width:180px;padding-top:5px;}
+
+/*--后台样式 end---*/
+
+
+.error {
+	color: red;
+}
+
+.hide-js {
+	display:none;
+}

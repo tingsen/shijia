@@ -1,0 +1,42 @@
+<div class="sj-ps-ttitle c-hui"><span>编号：{$material['m_id']}</span><span>姓名：{$material['name']}</span><span class="mr-0">单位：{$material['unit']}</span></div>
+<a class="btn btn-danger w-90 pull-right" href="javascript:void(0);" onclick="reload_page();">预审标准</a>
+<div class="sj-ps-center-nr">
+	<div class="sj-ps-div-bor pt-0 clearfix">
+		<span class="sj-ps-uers-daimg">
+			<img src="__UPLOAD__{:$material['avatar']['file_path'].$material['avatar']['file_name']}" width="100" alt="{$material['name']}">
+		</span>
+		<span class="jbxx clearfix">
+			<span class="sj-xx-text-x">
+				<span> <strong>基础信息：</strong> </span><br>
+				<span>姓名</span><span>{$material['name']}</span><br>
+				<span>出生日期</span><span>{$material['founded']}</span><br>
+				<span>工作年限</span><span>{$material['nature']}</span><br>
+				<span>职称</span><span>{$material['position']}</span>
+			</span>
+			<span class="sj-xx-text-x">
+				<br>
+				<span>性别</span><span>{$material['sex']|sex_name}</span><br>
+				<span>最高学历</span><span>{$material['design_count']|scope_name}</span><br>
+				<span>现职单位</span><span>{$material['unit']}</span><br>
+			</span>
+		</span>
+	</div>
+	<div class="sj-ps-div-bor pl-10 clearfix">
+		<span class="sj-xx-text-d">
+			<span> <strong>个人履历：</strong> </span><br>
+				<span class="lh-25">{$material['description']}</span><br>
+		</span>
+	</div>
+	<div class="sj-ps-div-bor clearfix">
+		<span class="sj-xx-text-d">
+			<span> <strong>主要学术观点：</strong> </span><br>
+			<span class="lh-25">{$material['content']}</span>
+		</span>
+	</div>
+	<div class="sj-ps-div clearfix">
+		<div class="sj-xx-text-d">
+			<span> <strong>设计教育改革创新成果：</strong> </span><br>
+			<span class="lh-25">{$material['fruit']}</span>
+		</div>
+	</div>
+</div>

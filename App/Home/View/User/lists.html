@@ -1,0 +1,38 @@
+<!--局部内容-->
+<div class="clearfix pt-40">
+	<!--局部左侧内容-->
+	<div class="span-online-left">
+		<!--局部左侧链接内容-->
+		<ul class="clearfix online-left-ul mb-20">
+			<li class="current"><a href="{:U('lists')}" class="sj-ce-a">我的申请</a></li>
+			<li><a href="{:U('edit')}" class="sj-ce-a">资料修改</a></li>
+		</ul>
+		<!--局部左侧链接内容结束-->
+		<!--局部左侧图片内容-->
+		<div class="online-left-img"><img src="__PUBLIC__/images/online-leftimg.png" alt=""></div>
+		<!--局部左侧链接内容结束-->
+	</div>
+	<!--局部居中内容-->
+	<div class="span-online-center">
+		<div class="sj-lunbo">
+			<ul>
+			<foreach name='materials' key='k' item='v'>
+				<li>
+				    {$v.id}
+				    {$v.name|msubstr=###,0,10,'utf-8',true}
+				    <if condition="($v['state'] lt 3) ">
+					<a href="{:U('home/material/info', array('m_id'=>$v['id']))}" class="">编辑</a>
+				    </if>
+				    <if condition="($v['state'] lt 3) ">
+					<a href="{:U('delete', array('id'=>$v['id']))}" class="">删除</a>
+				    </if>
+				</li>
+			</foreach>
+			</ul>
+			<ul class="pagination">{$page}</ul>
+		</div>
+		</div>
+		<include file="Base/right" />
+	  </div>
+</div>
+<!--局部内容结束-->

@@ -1,0 +1,80 @@
+<!--编辑器-->
+<script charset="utf-8" src="__PUBLIC__/plug/kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="__PUBLIC__/plug/kindeditor/lang/zh_CN.js"></script>
+
+<script type="text/javascript">
+
+	//加载编辑器
+	KindEditor.ready(function(K) {
+		var options = {
+			height : "350px", //编辑器的高度为100px
+			filterMode : true, //过滤HTML代码
+			resizeMode : 1, //编辑器只能调整高度
+			uploadJson	: '{:U('Home/Upload/save_edit', array('id'=>$block['id'], 'type'=>'Block'))}'	//上传路径
+
+		};
+		var editor = K.create('textarea[name="content"]', options);
+	});
+
+</script>
+
+<div class="row">
+	<div class="col-xs-2">
+		<include file="Base/_left_nav" />
+	</div>
+	<div class="col-xs-10">
+
+		<div class="list-group clearfix">
+		<include file="_toolbar" />
+
+		<div class="guide-box">
+			<form action="{:U('update')}" method="post" class="form-horizontal">
+				<input type="hidden" name="id" value="{$block['id']}" />
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">标识:</label>
+					<div class="col-sm-10">
+						<input type="text" name="mark" class="form-control" value="{$block.mark}" />
+						<p class="red">标识必须唯一,且只支持字母或下划线</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">名称:</label>
+					<div class="col-sm-10">
+						<input type="text" name="name" class="form-control" value="{$block.name}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">备注:</label>
+					<div class="col-sm-10">
+						<textarea name="remarks" class="form-control">{$block.remarks}</textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">内容:</label>
+					<div class="col-sm-10">
+						<textarea name="content" class="form-control">{$block.content}</textarea>
+						<p class="red">如果代码含有[code]...[/code]部分,请了解代码结构后并切换到HTML代码区再编辑</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">状态:</label>
+					<div class="col-sm-10">
+						<input type="radio" class="" class="" name="state" value="0" {$block['state']==0 ? 'checked' : ''} />禁用<span class="m-10"></span>
+						<input type="radio" class="" class="" name="state" value="1" {$block['state']==1 ? 'checked' : ''} />正常
+					</div>
+				</div>
+
+				  <div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+					  <a href="{:U('index')}" class="btn btn-default">取消</a>
+					  <button type="submit" class="btn btn-primary">保存</button>
+					</div>
+				  </div>
+		  </form>
+		</div>
+	</div>
+</div>

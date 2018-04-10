@@ -1,0 +1,10 @@
+<select name="city" class="form-control dropdown">
+	<option value="0" class="label">--不限--</option>
+	<volist name="cities" id="city">
+		<if condition="$cid eq $city['id'] ">
+			<option value="{$city['id']}" selected>{$city['name']}</option>
+		<else />
+			<option value="{$city['id']}">{$city['name']}</option>
+		</if>
+	</volist>
+</select>

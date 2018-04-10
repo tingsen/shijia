@@ -1,0 +1,69 @@
+<!--局部内容-->
+<div class="clearfix pt-40">
+	<!--局部左侧内容-->
+	<div class="span-online-left">
+		<!--局部左侧链接内容-->
+		<include file="left_nav" />
+		<!--局部左侧链接内容结束-->
+		<!--局部左侧图片内容-->
+		<div class="online-left-img"><img src="__PUBLIC__/images/lijiesj-leftimg.png" alt=""></div>
+		<!--局部左侧链接内容结束-->
+	</div>
+	<!--局部居中内容-->
+	<div class="span-online-center">
+		<div class="sj-lunbo">
+			<!--局部居中新闻列表内容-->
+			<div class="w-450 center-block">
+				<!--局部居中工作机会内容-->
+				<span class="bor-bott-box mb-20">
+					<h5 class="m-0 mb-10 c-hong fw-700">{$year}年度中国工业设计{:prize_name($prize_id, $year)}</h5>
+				</span>
+
+				<!--局部居中最终页简介内容-->
+				<div class="clearfix">
+					<if condition="in_array($prize_id, array(1,2,3))">
+						<if condition="$year eq 2011 AND $prize_id eq 3" >
+							<div class="clearfix mb-20">
+								<noempty name="$material['avatar']">
+									<img src="__UPLOAD__{:$material['avatar']['file_path'].$material['avatar']['file_name']}" style="width:125px;height:55px;" alt="{$material.name}" class="mb-5">
+								</noempty>
+								<p class="mb-30 fw-700">{$material.name}</p>
+								<p class="text-2in c-huihui">{$material.remark|html_entity_decode}</p>
+								<p class="mt-20 c-hong lh-25 text-2in"><a target="_blank" class="c-hong lh-25" href="http://www.ztetech.com.cn">{$material.web_url}</a> </p>
+							</div>
+						<else />
+							<div class="clearfix mb-20">
+								<noempty name="$material['avatar']">
+									<div class="w-100 h-140 pull-left mr-20"><img src="__UPLOAD__{:$material['avatar']['file_path'].$material['avatar']['file_name']}" style="width:100px;height:140px;" alt="{$material.name}"></div>
+								</noempty>
+								<div class="w-330 pull-left h-130 sj-lj-text">
+									<p>{$material.name}<br>
+									{$material.unit} {$material.position}</p>
+								</div>
+								<p class="lh-25 c-huihui">{$material.remark|html_entity_decode}</p>
+							</div>
+						</if>
+					<else/>
+						<div class="clearfix mb-20">
+							<if condition="isset($material['avatar'])">
+								<img src="__UPLOAD__{:$material['avatar']['file_path'].$material['avatar']['file_name']}" style="width:125px;height:55px;" alt="{$material.name}" class="mb-5">
+							</if>
+							<p class="mb-30 fw-700">{$material.name}</p>
+							<p class="text-2in c-huihui">{$material.remark|html_entity_decode}</p>
+							<p class="mt-20 c-hong lh-25 text-2in"><a target="_blank" class="c-hong lh-25" href="http://www.ztetech.com.cn">{$material.web_url}</a> </p>
+						</div>
+					</if>
+				</div>
+
+
+
+
+				<!--局部居中工作机会内容结束-->
+			</div>
+			<!--局部居中新闻列表内容结束-->
+		</div>
+	</div>
+	<include file="Base/right" />
+</div>
+<!--局部内容结束-->
+

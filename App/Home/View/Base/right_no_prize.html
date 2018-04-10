@@ -1,0 +1,50 @@
+<!--局部右侧内容-->
+<div class="span-right">
+	<!--报名内容-->
+	<div class="an-niu clearfix">
+		<a href="{:U('home/material/sort')}" class="sj-an-tou mr-9"></a>
+		<a href="{:U('home/rater/index')}" class="sj-an-pw"></a>
+	</div>
+	<!--报名内容end-->
+	<div class="sj-bor-bott"></div>
+	<!--lunbo内容-->
+	<div id="myCarousel1" class="carousel slide mb-50">
+		<div class="carousel-inner">
+			<volist name=":load_column('index_person_prize_slide', 1)" id="vo" key="k" empty="暂时没有数据" >
+				<if condition="$k eq 1 ">
+					<div class="active item">
+				<else />
+					<div class="item">
+				</if>
+				<if condition="isset($vo['asset'])">
+					<a href="{$vo['address']}" target="_blank"><img src="__UPLOAD__{:$vo['asset']['file_path'].$vo['asset']['file_name']}" style="width:195px;height:150px;" title="{$vo['title']}" alt="{$vo['title']}"/></a>
+					<div class="carousel-caption bg-hui">
+						<p>{$vo['title']}</p>
+					</div>
+				</if>	
+				</div>
+			</volist>
+		</div>
+	</div>
+	<!--lunbo内容end-->
+	<!--lunbo内容-->
+	<div id="myCarousel2" class="carousel slide">
+		<div class="carousel-inner">
+			<volist name=":load_column('index_company_prize_slide', 1)" id="vo" key="k" empty="暂时没有数据" >
+				<if condition="$k eq 1 ">
+					<div class="active item">
+				<else />
+					<div class="item">
+				</if>
+				<if condition="isset($vo['asset'])">
+					<a href="{$vo['address']}" target="_blank"><img src="__UPLOAD__{:$vo['asset']['file_path'].$vo['asset']['file_name']}" style="width:195px;height:150px;" title="{$vo['title']}" alt="{$vo['title']}"/></a>
+					<div class="carousel-caption bg-hui">
+						<p>{$vo['title']}</p>
+					</div>
+				</if>	
+				</div>
+			</volist>
+		</div>
+	</div>
+	<!--lunbo内容end-->
+</div>

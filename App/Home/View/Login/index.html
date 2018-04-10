@@ -1,0 +1,108 @@
+<script src="__PUBLIC__/plug/jquery.validate.min.js"></script>
+<script type="text/javascript">
+function fleshVerify(){ 
+	var time = new Date().getTime();
+	document.getElementById('verifyImg').src= '{:U('verify')}/'+time;
+}
+
+	$(function(){
+		// validate signup form on keyup and submit
+		$("#validate_form").validate({
+			ignore: "",
+			rules: {
+				email: {
+					required: true,
+					email: true
+				},
+				password: {
+					required: true
+				},
+				verify: {
+					required: true
+				}
+			},
+			messages: {
+				email: {
+					required: "* 请输入邮箱",
+					email: "* 邮箱格式不正确"
+				},
+				password: {
+					required: "* 请输入密码"
+				},
+				verify: {
+					required: "* 请输入验证码"
+				}
+			}
+
+		});
+
+	})
+</script>
+
+<!--局部内容-->
+<div class="clearfix pt-40">
+<!--局部左侧内容-->
+	<div class="span-online-left">
+		<!--局部左侧链接内容-->
+		<ul class="clearfix online-left-ul mb-20">
+			<li><a href="" class="sj-ce-a">在线报名</a></li>
+		</ul>
+		<!--局部左侧链接内容结束-->
+		<!--局部左侧图片内容-->
+		<div class="online-left-img"><img src="__PUBLIC__/images/online-leftimg.png" alt=""></div>
+		<!--局部左侧链接内容结束-->
+	</div>
+		<!--局部居中内容-->
+		<div class="span-online-center">
+			<div class="sj-lunbo">
+				<!--局部居中面包屑导航内容-->
+				<div class="nav-mbx mb-50">
+					<a class="nav-mbx-a nav-mbx-first current">1 登录注册</a>
+					<a class="nav-mbx-a">2 申请奖项选择</a>
+					<a class="nav-mbx-a">3 基础信息填写</a>
+					<a class="nav-mbx-a">4 文件下载</a>
+				</div>
+				<!--局部居中面包屑导航内容结束-->
+				<!--局部居中登录列表内容-->
+				<div class="w-350 center-block">
+					<form action="{:U('home/login/login')}" class="form-horizontal" id="validate_form" role="form" method="post">
+					  <div class="form-group">
+					    <label for="inputEmail3" class="c-huihui col-xs-3 control-label">电子邮件</label>
+					    <div class="col-xs-9">
+					      <input type="text" class="form-control" id="inputEmail3" name="email">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputPassword3" class="c-huihui col-xs-3 control-label" name="password">密码</label>
+					    <div class="col-xs-9">
+					      <input type="password" class="form-control" name="password" id="inputPassword3">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputyzm3" class="c-huihui col-xs-3 control-label">验证码</label>
+					    <div class="col-xs-4">
+					      <input type="text" class="form-control" name="verify" id="inputyzm3">
+					    </div>
+					    <div class="col-xs-3 p-0">
+					    	<img id="verifyImg" src="{:U('verify')}/" onclick="fleshVerify()"/>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-xs-12">
+					    	<a href="{:U('Email/forget')}" class="pull-right sj-zhmm c-huihui">找回密码</a>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-sm-offset-3 col-xs-9">
+					      <button type="submit" class="btn btn-danger w-90">登陆</button>
+					      <a href="{:U('home/login/signup')}" class="btn btn-hui w-90">注册</a>
+					    </div>
+					  </div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<include file="Base/right" />
+	</div>
+</div>
+<!--局部内容结束-->

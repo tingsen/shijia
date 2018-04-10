@@ -1,0 +1,112 @@
+<script style="text/javascript">
+
+	//恢复方法单个
+	function ajax_recover() {
+		var ids = $(this).attr('val');
+		var url = "{:U('mark_r_drop')}";
+		if(!confirm('确认执行这个操作吗?')){
+			return false;
+		}
+		sj.ajax_delete(url, ids, 'post', 'recover');
+	}
+
+	//恢复多个
+	function ajax_recover_multiple() {
+		var ids = sj.ckbox_record("input:checkbox[name='checkbox']");
+		if(ids != ''){
+			if(!confirm("确定要恢复选中的内容吗？")){
+				return false;
+			}
+			var url = "{:U('mark_r_drop')}";
+			sj.ajax_delete(url, ids, 'post', 'recover');
+		}else{
+			alert("请选择要恢复的内容！");
+		}
+	}
+
+	//删除方法单个
+	function ajax_drop() {
+		var ids = $(this).attr('val');
+		var url = "{:U('drop')}";
+		if(!confirm('确认执行这个操作吗?')){
+			return false;
+		}
+		sj.ajax_delete(url, ids, 'post', 1);
+	}
+
+	//删除多个
+	function ajax_drop_multiple() {
+		var ids = sj.ckbox_record("input:checkbox[name='checkbox']");
+		if(ids != ''){
+			if(!confirm("确定要删除选中的内容吗？")){
+				return false;
+			}
+			var url = "{:U('drop')}";
+			sj.ajax_delete(url, ids, 'post', 1);
+		}else{
+			alert("请选择要删除的内容！");
+		}
+	}
+
+</script>
+
+<div class="row">
+	<div class="col-xs-2">
+		<include file="Base/_left_nav" />
+	</div>
+	<div class="col-xs-10">
+		<include file="_toolbar" />
+
+		<div class="guide-box">
+			<include file="Base/_select_box" />
+			<div class="right_operation clearfix">
+				<div class="operate_box clearfix">
+					<a href="#ajax_recover_multiple" class="ajax-hash">恢复</a>
+					<a href="#ajax_drop_multiple" class="ajax-hash">删除</a>
+				</div>
+			</div>
+			
+			<table class="table table-striped">
+			  <thead>
+				<tr>
+				  <th></th>
+				  <th>ID:</th>
+				  <th>标题:</th>
+				  <th>封面:</th>
+				  <th>类型:</th>
+				  <th>分类:</th>
+				  <th>推荐:</th>
+				  <th>状态:</th>
+				  <th>创建时间:</th>
+				  <th>操作:</th>
+				</tr>
+			  </thead>
+			  <tbody id="user_list">
+				<foreach name='posts' key='k' item='v'>
+					<tr id="post_box_{$v.id}">
+					  <td><input type="checkbox" name="checkbox" value="{$v.id}"></td>
+					  <td>{$v.id}</td>
+					  <td><a href="#">{$v.title|msubstr=###,0,12,'utf-8',true}</a></td>
+					  <td>
+						<if condition="isset($v['cover'])">
+						  <img src="__UPLOAD__{:$v['cover']['file_path'].$v['cover']['file_name']}" width="120" />
+						<else />
+						  无
+						</if>
+					  </td>
+					  <td>{$v.kind}</td>
+					  <td>{$v.category.name|default='--'}</td>
+					  <td>{$v['stick']==0 ? '否' : '是'}</td>
+					  <td>{$v['state']==0 ? '禁用' : '正常'}</td>
+					  <td>{$v['created_on']|date='Y-m-d', ###}</td>
+					  <td><a href="#ajax_recover" class="ajax-hash" val="{$v['id']}">恢复</a> | <a href="#ajax_drop" class="ajax-hash" val="{$v['id']}">删除</a></td>
+					</tr>
+				</foreach>
+			  </tbody>
+			</table>
+			<div>
+				<ul class="pagination">{$page}</ul>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,89 @@
+<script style="text/javascript">
+	//删除方法单个
+	function ajax_drop() {
+		var ids = $(this).attr('val');
+		var url = "{:U('drop')}";
+		if(!confirm('确认执行这个操作吗?')){
+			return false;
+		}
+		sj.ajax_delete(url, ids, 'column', 1);
+	}
+
+	//删除多个
+	function ajax_drop_multiple() {
+		var ids = sj.ckbox_record("input:checkbox[name='checkbox']");
+		if(ids != ''){
+			if(!confirm("确定要删除选中的内容吗？")){
+				return false;
+			}
+			var url = "{:U('drop')}";
+			sj.ajax_delete(url, ids, 'column', 1);
+		}else{
+			alert("请选择要删除的内容！");
+		}
+	}
+
+</script>
+
+<div class="row">
+	<div class="col-xs-2">
+		<include file="Base/_left_nav" />
+	</div>
+	<div class="col-xs-10">
+		<include file="_toolbar" />
+
+		<div class="guide-box">
+			<include file="Base/_select_box" />
+			<div class="right_operation clearfix">
+				<div class="operate_box clearfix">
+					<a href="{:U('add')}">+新建</a>
+					<a href="#ajax_drop_multiple" class="ajax-hash">删除</a>
+				</div>
+			</div>
+			
+			<table class="table table-striped">
+			  <thead>
+				<tr>
+				  <th></th>
+				  <th>ID:</th>
+				  <th>标题:</th>
+				  <th>封面:</th>
+				  <th>类型:</th>
+				  <th>创建人:</th>
+				  <th>所属栏目位:</th>
+				  <th>推荐:</th>
+				  <th>状态:</th>
+				  <th>创建时间:</th>
+				  <th>操作:</th>
+				</tr>
+			  </thead>
+			  <tbody id="user_list">
+				<foreach name='columns' key='k' item='v'>
+					<tr id="column_box_{$v.id}">
+					  <td><input type="checkbox" name="checkbox" value="{$v.id}"></td>
+					  <td>{$v.id}</td>
+					  <td>{$v.title|msubstr=###,0,12,'utf-8',true}</td>
+					  <td>
+						<if condition="empty($v['asset'])">
+						  无
+						<else />
+						  <img src="__UPLOAD__{:$v['asset']['file_path'].$v['asset']['file_name']}" width="100" />
+						</if>
+					  </td>
+					  <td>{$v.kind}</td>
+					  <td>{$v.user.nickname|default='--'}</td>
+					  <td>{$v.column_space.name|default='--'}</td>
+					  <td>{$v.sort}</td>
+					  <td>{$v['state']==0 ? '禁用' : '正常'}</td>
+					  <td>{$v['created_on']|date='Y-m-d', ###}<br />{$v['updated_on']|date='Y-m-d', ###}</td>
+					  <td><a href="{:U('edit', array('id'=>$v['id']))}">编辑</a> | <a href="#ajax_drop" class="ajax-hash" val="{$v['id']}">删除</a></td>
+					</tr>
+				</foreach>
+			  </tbody>
+			</table>
+			<div>
+				<ul class="pagination">{$page}</ul>
+			</div>
+		</div>
+	</div>
+</div>

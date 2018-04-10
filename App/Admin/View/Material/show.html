@@ -1,0 +1,99 @@
+<script style="text/javascript">
+	//删除方法单个
+	function ajax_drop() {
+		var ids = $(this).attr('val');
+		var url = "{:U('drop')}";
+		if(!confirm('确认执行这个操作吗?')){
+			return false;
+		}
+		sj.ajax_delete(url, ids, 'material');
+	}
+
+	//删除多个
+	function ajax_drop_multiple() {
+		var ids = sj.ckbox_record("input:checkbox[name='checkbox']");
+		if(ids != ''){
+			if(!confirm("确定要删除选中的内容吗？")){
+				return false;
+			}
+			var url = "{:U('drop')}";
+			sj.ajax_delete(url, ids, 'material');
+		}else{
+			alert("请选择要删除的内容！");
+		}
+	}
+
+</script>
+
+<div class="row">
+	<div class="col-xs-2">
+		<include file="Base/_left_nav" />
+	</div>
+	<div class="col-xs-10">
+		<include file="_toolbar" />
+
+		<div class="guide-box">
+			
+			<div class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">参加年份:</label>
+					<div class="col-sm-10">
+						<span class="form-control">{$material['year']}</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">所属奖项:</label>
+					<div class="col-sm-10">
+						<span class="form-control">{$material['prize_id']|prize_name}</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">所在地区:</label>
+					<div class="col-sm-10">
+						<span class="form-control">{$material['province']|show_city}, {$material['city']|show_city}</span>
+					</div>
+				</div>
+
+				<switch name="material['prize_id']">
+					<case value="1"><include file="_educate" /></case>
+					<case value="2"><include file="_elite" /></case>
+					<case value="3"><include file="_designer" /></case>
+					<case value="4"><include file="_company" /></case>
+					<case value="5"><include file="_firm" /></case>
+					<default />default
+				</switch>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">联系人姓名:</label>
+					<div class="col-sm-10">
+						<span class="form-control">{$material['contact_name']}</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">联系人电话:</label>
+					<div class="col-sm-10">
+						<span class="form-control">{$material['contact_tel']}</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">联系人邮箱:</label>
+					<div class="col-sm-10">
+						<span class="form-control">{$material['contact_email']}</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">推荐单位:</label>
+					<div class="col-sm-10">
+						<span class="form-control">{$material['introduction']}</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

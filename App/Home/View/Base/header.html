@@ -1,0 +1,78 @@
+<!--header头部-->
+<div class="header">
+	<!--top搜索语言切换-->
+	<div class="sj-top-solang clearfix">
+		<div class="sj-top-lang">
+			<a href="" class="sj-lang-a current">中文</a>
+			<a href="" class="sj-lang-a border-r-0">ENG</a>
+		</div>
+		<div class="col-xs-2 sj-top-search pull-right p-0">
+			<form action="{:U('home/post/search')}" role="search" class="navbar-form p-0 clearfix" method="post">
+				<div class="form-froup">
+					<input type="text" name="title" placeholder="搜索" class="form-control input-sm">
+				</div>
+			</form>
+		</div>
+		<div class="pull-left pt-15">
+			<if condition="$_SESSION['name']"><a href="{:U('home/user/lists')}">{$_SESSION['name']}</a>
+			<if condition="is_edit()">
+				<a href="{:U('admin/index/index')}">后台管理</a>
+			</if>
+				<a href="{:U('home/login/logout')}" class="c-hong">退出</a>
+			<else />
+				<a href="{:U('home/login/index')}" class="">登陆</a>
+			</if>
+		</div>
+	</div>
+	<!--top搜索语言切换结束-->
+	<!--header图片背景及logo-->
+	<div class="header-bg">
+		<a href="#" class="sj-logo"></a>
+	</div>
+	<!--图片背景及logo结束-->
+	<!--导航-->
+	<div class="sj-nav">
+		<div class="nav-div"><a href="{:U('home/index/index')}" class="nav-a {$css_header_index|css_current}">首页</a></div>
+		<div class="nav-div"><a href="{:U('home/help/beijing')}" class="nav-a dropdown-toggle {$css_header_about|css_current}" data-hover="dropdown">关于十佳</a>
+			<ul class="dropdown-menu">
+				<li><a href="{:U('home/help/beijing')}">背景</a></li>
+				<li><a href="{:U('home/help/about')}">十佳简介</a></li>
+				<li><a href="{:U('home/help/institution')}">组织机构</a></li>
+				<li><a href="{:U('home/help/prize')}">奖项设置</a></li>
+				<li><a href="{:U('home/help/mode')}">参评办法</a></li>
+				<li><a href="{:U('home/help/workflow')}">评审流程</a></li>
+				<li><a href="{:U('home/help/popularize')}">推广提升</a></li>
+				<li><a href="{:U('home/help/anpai')}">时间安排</a></li>
+				<li><a href="{:U('home/help/chengxu')}">参评程序</a></li>
+			</ul>	
+		</div>
+		<div class="nav-div"><a href="{:U('home/post/index')}" class="nav-a {$css_header_post|css_current}">新闻中心</a></div>
+		<div class="nav-div"><a href="{:U('home/material/sort')}" class="nav-a {$css_header_material|css_current}">在线报名</a></div>
+		<div class="nav-div"><a href="{:U('home/help/jury')}" class="nav-a {$css_header_jury|css_current}">评委组成</a></div>
+		<div class="nav-div"><a href="{:U('home/history/index')}" class="nav-a dropdown-toggle {$css_header_history|css_current}" data-hover="dropdown">历届十佳</a>
+			<ul class="dropdown-menu">
+				<li><a href="{:U('history/index', array('prize_id'=>5, 'year'=>2013))}">2013年度</a></li>
+				<li><a href="{:U('history/index', array('prize_id'=>5, 'year'=>2012))}">2012年度</a></li>
+				<li><a href="{:U('history/index', array('prize_id'=>5, 'year'=>2011))}">2011年度</a></li>
+			</ul>	
+		</div>
+		<div class="nav-div"><a href="{:U('home/post/promotion')}" class="nav-a {$css_header_promotion|css_current}">推广提升</a></div>
+		<div class="nav-div"><a href="{:U('home/help/contact')}" class="nav-a {$css_header_contact|css_current}">联系我们</a></div>
+	</div>
+	<!--导航结束-->
+</div>
+<!--header头部结束-->
+<!--
+<h1>这是头部</h1>
+<if condition="$_SESSION['email']">{$_SESSION['email']}<a href="{:U('home/login/logout')}">退出</a>
+<else />
+</if>
+
+<div>
+	<a href="{:U('Home/Index/index')}">首页</a>
+	<a href="{:U('Home/Material/sort')}">申请报名</a>
+	<a href="{:U('Home/Rater/index')}">专家评审</a>
+	<a href="{:U('Admin/Index/index')}">后台管理</a>
+
+</div>
+-->

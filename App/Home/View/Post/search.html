@@ -1,0 +1,52 @@
+<!--局部内容-->
+<div class="clearfix pt-40">
+	<!--局部左侧内容-->
+	<div class="span-online-left">
+		<!--局部左侧链接内容-->
+		<div class="pl-20">
+			<h5 class="m-0 c-hong mb-20">搜索结果</h5>
+		</div>
+		<!--局部左侧链接内容结束-->
+	</div>
+	<!--局部居中内容-->
+	<!--局部居中内容-->
+	<div class="span-online-center">
+		<div class="sj-lunbo">
+			<!--局部居中新闻列表内容-->
+			<div class="w-450 center-block">
+				<ul class="p-0">
+
+					<volist name="posts" id="vo" key="k" empty="暂时没有数据" >
+						<li class="clearfix sj-news-li">
+							<if condition="isset($vo['cover'])">
+								<div class="sj-news-li-img pull-left mr-20">
+									<a href="{:U('post/show', array('id'=>$vo['id']))}" target="_blank"><img src="__UPLOAD__{:$vo['cover']['file_path'].$vo['cover']['file_name']}" alt="" style="width: 140px;height: 93px;" target="_blank"></a>
+								</div>
+								<div class="pull-left sj-news-li-text">
+									<a href="{:U('post/show', array('id'=>$vo['id']))}" target="_blank"><h5 class="m-0 mb-20">{$vo['title']|msubstr=###,0,20,'utf-8',true}</h5></a>
+									<p>{$vo['description']|msubstr=###,0,40,'utf-8',true}</p>
+									<div class="clearfix"><a href="{:U('post/show', array('id'=>$vo['id']))}" target="_blank" class="pull-left sj-news-more">More</a><span class="pull-right c-huihui">{$vo['created_on']|date='Y-m-d', ###}</span></div>
+								</div>
+							<else/>
+								<div class="pull-left sj-news-li-text" style="width:100%;">
+									<a href="{:U('post/show', array('id'=>$vo['id']))}" target="_blank"><h5 class="m-0 mb-20">{$vo['title']|msubstr=###,0,30,'utf-8',true}</h5></a>
+									<p>{$vo['description']|msubstr=###,0,100,'utf-8',true}</p>
+									<div class="clearfix"><a href="{:U('post/show', array('id'=>$vo['id']))}" target="_blank" class="pull-left sj-news-more">More</a><span class="pull-right c-huihui">{$vo['created_on']|date='Y-m-d', ###}</span></div>
+								</div>
+							</if>
+						</li>
+					</volist>
+				</ul>
+			</div>
+			<div>
+				<ul class="pagination">{$page}</ul>
+			</div>
+			<!--局部居中新闻列表内容结束-->
+			<!--局部居中分页内容-->
+
+			<!--局部居中分页内容结束-->
+		</div>
+	</div>
+	<include file="Base/right" />
+</div>
+<!--局部内容结束-->

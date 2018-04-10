@@ -1,0 +1,185 @@
+<!--上传-->
+<script src="__PUBLIC__/plug/jquery.jUploader-1.01.js"></script>
+<!--编辑器-->
+<script charset="utf-8" src="__PUBLIC__/plug/kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="__PUBLIC__/plug/kindeditor/lang/zh_CN.js"></script>
+<script type="text/javascript">
+	// 全局配置（这样就不必每次初始化时都加上下面的设置）
+	$.jUploader.setDefaults({
+		cancelable: true, // 可取消上传
+		allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'], // 只允许上传图片
+		messages: {
+			upload: '上传封面',
+			cancel: '取消',
+			emptyFile: "{ file } 为空，请选择一个文件.",
+			invalidExtension: "{file} 后缀名不合法. 只有 {extensions} 是允许的.",
+			onLeave: "文件正在上传，如果你现在离开，上传将会被取消。"
+		}
+	});
+
+	//加载编辑器
+	KindEditor.ready(function(K) {
+		var options = {
+			height : "500px", //编辑器的高度为100px
+			filterMode : true, //过滤HTML代码
+			resizeMode : 1, //编辑器只能调整高度
+			uploadJson	: '{:U('Home/Upload/save_edit', array('id'=>$post['id'], 'type'=>'Post'))}'	//上传路径
+		};
+		var editor = K.create('textarea[name="content"]', options);
+	});
+
+	$(function(){
+
+		$.jUploader({
+			button: 'upload_cover', // 这里设置按钮id
+			action: '{:U('Home/Upload/save_cover', array('id'=>$post['id'], type=>'Post'))}', // 这里设置上传处理接口
+			// 开始上传事件
+			onUpload: function (fileName) {
+				$('#tip').text('正在上传 ' + fileName + ' ...');
+			},
+
+			// 上传完成事件
+			onComplete: function (fileName, response) {
+				if(response.state)
+				{
+					$('#tip').text(fileName + ' 上传成功。');
+					//记录封面id
+					$("input[name='cover_id']").val(response.asset_id);
+					var url = response.result.savepath + response.result.savename;
+					$('#show_cover').html('<img src="__UPLOAD__'+ url +'" width="120" />');
+				}else{
+					$('#tip').text(response.info);
+					$('#show_cover').html('');
+				}
+			},
+			// 取消上传事件
+			onCancel: function (fileName) {
+				$('#tip').text(fileName + ' 上传取消。');
+			},
+			// 系统信息显示（例如后缀名不合法）
+			showMessage: function (message) {
+				$('#tip').text(message);
+			}
+		});
+
+
+	})
+</script>
+
+<div class="row">
+	<div class="col-xs-2">
+		<include file="Base/_left_nav" />
+	</div>
+	<div class="col-xs-10">
+
+		<div class="list-group clearfix">
+		<include file="_toolbar" />
+
+		<div class="guide-box">
+			<form action="{:U('update')}" method="post" class="form-horizontal">
+				<input type="hidden" name="id" value="{$post['id']}" />
+				<input type="hidden" name="cover_id" value="{$post['cover_id']}" />
+				<input type="hidden" name="old_cover_id" value="{$post['cover_id']}" />
+				<div class="form-group">
+					<label class="col-sm-1 control-label">类型:</label>
+					<div class="col-sm-11">
+						<input type="radio" class="" class="" name="kind" value="1" {$post['kind']==1 ? 'checked' : ''} />新闻<span class="m-10"></span>
+						<input type="radio" class="" class="" name="kind" value="2" {$post['kind']==2 ? 'checked' : ''} />推广提升
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-1 control-label">分类:</label>
+					<div class="col-sm-11">
+						<select name="category_id" class="form-control">
+							<volist name=":cate_options(1, 'all')" id="cate">
+								<option value="{$cate.id}" {$post['category_id']==$cate['id'] ? 'selected' : ''}>{$cate.name}</option>
+							</volist>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-1 control-label">标题:</label>
+					<div class="col-sm-11">
+						<input type="text" name="title" class="form-control" value="{$post.title}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-1 control-label">封面:</label>
+					<div class="col-sm-11">
+						<div id="upload_cover" class="btn btn-success">
+							<span></span>
+						</div> <!-- div里的span必须保留，用来放文字的 -->
+				        <p>
+							<span id="tip" class="help-block">请选择图片</span>
+						</p>
+				        <p>
+							<span id="tip" class="help-block red">尺寸要求: 140x95</span>
+						</p>
+						
+						<!--显示封面区域-->
+						<div id="show_cover">
+						<if condition="isset($post['cover'])">
+						  <img src="__UPLOAD__{:$post['cover']['file_path'].$post['cover']['file_name']}" width="120" />
+						<else />
+						  无
+						</if>	
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-1 control-label">摘要:</label>
+					<div class="col-sm-11">
+						<textarea name="description" class="form-control">{$post.description}</textarea>
+						<p class="red">用于列表页显示,不超过140个字</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-1 control-label">内容:</label>
+					<div class="col-sm-11">
+						<textarea name="content" class="form-control">{$post.content}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-1 control-label">排序:</label>
+					<div class="col-sm-11">
+						<input type="text" name="sort" class="form-control" value="{$post.sort}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-1 control-label">发布:</label>
+					<div class="col-sm-11">
+						<input type="radio" class="" class="" name="publish" value="0" {$post['publish']==0 ? 'checked' : ''} checked />否<span class="m-10"></span>
+						<input type="radio" class="" class="" name="publish" value="1" {$post['publish']==1 ? 'checked' : ''} />是
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-1 control-label">推荐:</label>
+					<div class="col-sm-11">
+						<input type="radio" class="" class="" name="stick" value="0" {$post['stick']==0 ? 'checked' : ''} />否<span class="m-10"></span>
+						<input type="radio" class="" class="" name="stick" value="1" {$post['stick']==1 ? 'checked' : ''}/>是
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-1 control-label">状态:</label>
+					<div class="col-sm-11">
+						<input type="radio" class="" class="" name="state" value="0" {$post['state']==0 ? 'checked' : ''} />禁用<span class="m-10"></span>
+						<input type="radio" class="" class="" name="state" value="1" {$post['state']==1 ? 'checked' : ''} />正常
+					</div>
+				</div>
+
+
+				  <div class="form-group">
+					<div class="col-sm-offset-1 col-sm-11">
+					  <a href="{:U('index')}" class="btn btn-default">取消</a>
+					  <button type="submit" class="btn btn-primary">保存</button>
+					</div>
+				  </div>
+		  </form>
+		</div>
+	</div>
+</div>

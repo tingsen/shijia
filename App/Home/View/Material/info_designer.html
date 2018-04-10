@@ -1,0 +1,237 @@
+<script type="text/javascript">
+
+	$(function(){
+		// validate signup form on keyup and submit
+		$("#validate_form").validate({
+			ignore: "",
+			rules: {
+				name: {
+					required: true,
+					rangelength: [2,20]
+				},
+				province: {
+					required: true
+				},
+				founded: {
+					required: true
+				},
+				email: {
+					required: true,
+					email: true
+				},
+				tel: {
+					required: true
+				},
+				position: {
+					required: true
+				},
+				unit: {
+					required: true
+				},
+				nature: {
+					required: true
+				},
+				promise_checkbox: {
+					required: true				  
+				}
+			},
+			messages: {
+				name: {
+					required: "* 请输入姓名",
+					rangelength: "* 长度不能少于{0}大于{1}个字符"
+				},
+				province: {
+					required: "* 请选择所在地"
+				},
+				founded: {
+					required: "* 请选择出生年月",
+				},
+				email: {
+					required: "* 请输入邮箱",
+					email: '* 邮箱格式不正确'
+				},
+				tel: {
+					required: "* 请输入联系方式"
+				},
+				position: {
+					required: "* 请输入职位"		  
+				},
+				unit: {
+					required: "* 请输入现职单位"		  
+				},
+				nature: {
+					required: "* 请输入工作年限"		  
+				},
+				promise_checkbox: {
+					required: " <b>*您确认阅读并同意我们的条款?</b>"
+				}
+			},
+			errorPlacement: function (error, element) { //指定错误信息位置
+				if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+					var eid = element.attr('name'); //获取元素的name属性
+					error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+				} else {
+					error.insertAfter(element);
+				}
+			}
+
+		});
+
+	})
+
+</script>
+
+  <div class="form-group">
+	<label for="" class="c-huihui col-xs-3 text-left control-label">姓名</label>
+	<div class="col-xs-9">
+	  <input type="text" name="name" value="{$material['name']}" class="form-control">
+	</div>
+  </div>
+  <div class="form-group">
+	<label for="" class="c-huihui col-xs-3 text-left control-label">性别</label>
+	<div class="col-xs-9">
+		<div class="radio-inline">
+		  <label>
+			<input type="radio" name="sex" id="optionsRadios1" value="1" {$material['sex'] == 1 ? 'checked' : '' } >
+			男
+		  </label>
+		</div>
+		<div class="radio-inline">
+		  <label>
+			<input type="radio" name="sex" id="optionsRadios2" value="2" {$material['sex'] == 2 ? 'checked' : '' }>
+			女
+		  </label>
+		</div>
+	</div>
+  </div>
+	<div class="form-group">
+	<label for="" class="c-huihui col-xs-3 text-left control-label">所在地区</label>
+		<div class="col-xs-4">
+		  <select name="province" class="form-control dropdown">
+				<option value="" class="label">--请选择--</option>
+				<volist name=":city_options()" id="city">
+					<if condition="$city['id'] eq $material['province']">
+						<option value="{$city['id']}" selected>{$city['name']}</option>
+					<else />
+						<option value="{$city['id']}">{$city['name']}</option>
+					</if>
+				</volist>
+		  </select>
+		</div>
+		<div class="col-xs-5" id="city_box">
+		  <select name="city" class="form-control dropdown">
+				<option value="0" class="label">--不限--</option>
+		  </select>
+		</div>
+	</div>
+  <div class="form-group">
+	<label for="" class="c-huihui col-xs-3 text-left control-label">最高学历</label>
+	<div class="col-xs-9">
+		<select name="design_count" class="form-control dropdown">
+			<option value="0" class="label">不限</option>
+			<volist name=":scope_options()" id="scope">
+			<if condition="$scope['id'] eq $material['design_count']">
+				<option value="{$scope['id']}" selected>{$scope['name']}</option>
+			<else />
+				<option value="{$scope['id']}">{$scope['name']}</option>
+			</if>
+			</volist>
+		</select>
+	</div>
+  </div>
+  <div class="form-group">
+		<label for="" class="c-huihui col-xs-3 text-left control-label">出生日期</label>
+		<div class="col-xs-9">
+		<div class="input-group date form_date col-md-6" data-link-field="founded" data-link-format="yyyy-mm-dd">
+			<empty name="$material['founded']">
+			<input class="form-control" size="16" type="text" value="{$material['founded']}" readonly>
+			<else />
+			<input class="form-control" size="16" type="text" value="" readonly>
+			</empty>
+			<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+		</div>
+		<input type="hidden" name="founded" id="founded" value="{$material['founded']}" />
+		</div>
+  </div>
+  <div class="form-group">
+	<label for="" class="c-huihui col-xs-3 text-left control-label">工作年限</label>
+	<div class="col-xs-9">
+	  <input type="text" name="nature" value="{$material['nature']}" class="form-control">
+	</div>
+  </div>
+  <div class="form-group">
+	<label for="" class="c-huihui col-xs-3 text-left control-label">现职单位</label>
+	<div class="col-xs-9">
+	  <input type="text" name="unit" value="{$material['unit']}" class="form-control">
+	</div>
+  </div>
+  <div class="form-group">
+	<label for="" class="c-huihui col-xs-3 text-left control-label">职务</label>
+	<div class="col-xs-9">
+	  <input type="text" name="position" value="{$material['position']}" class="form-control">
+	</div>
+  </div>
+  <div class="form-group">
+	<label for="" class="c-huihui col-xs-3 text-left control-label">手机</label>
+	<div class="col-xs-9">
+	  <input type="text" name="tel" value="{$material['tel']}" class="form-control">
+	</div>
+  </div>
+  <div class="form-group">
+	<label for="" class="c-huihui col-xs-3 text-left control-label">邮箱</label>
+	<div class="col-xs-9">
+	  <input type="text" name="email" value="{$material['email']}" class="form-control">
+	</div>
+  </div>
+  <div class="form-group">
+	<label for="" class="c-huihui col-xs-9 p-0 text-left control-label">个人肖像照 (文件大小不大于512k,尺寸为100x140px,jpg格式)</label>
+	<div class="col-xs-3">
+		<div id="upload_cover" class="btn btn-success btn-block">
+		<span></span>
+		</div>
+		<div id="show_cover">
+		<if condition="empty($material['avatar'])">
+		<else />
+		  <img class="sj-images" src="__UPLOAD__{:$material['avatar']['file_path'].$material['avatar']['file_name']}" width="120" />
+		</if>
+		</div>
+		<p>
+			<span id="tip" class="help-block">请选择图片</span>
+		</p>
+	</div>
+  </div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-xs-10">
+		  <div class="checkbox">
+			<label>
+			  <input type="checkbox" name="promise_checkbox"> 我已经阅读并同意《<a href="#myModal" data-toggle="modal">承诺书</a>》
+			</label>
+		  </div>
+		</div>
+	</div>
+	<!--承诺书的框-->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h4 class="modal-title" id="myModalLabel">承诺书</h4>
+		  </div>
+		  <div class="modal-body">
+			  <p class="text-2in lh-20">
+				本人同意遵守中国工业设计十佳大奖评选活动的相关规定，自愿参加年度中国工业设计十佳大奖评选活动。 
+			  </p>
+			  <p class="text-2in lh-20">
+				本人承诺所有申报材料均属实、准确、合法、有效，且不存在侵犯他人知识产权等违法违规情形，若出现问题，愿承担一切责任。 
+			  </p>
+			  <p class="text-2in lh-20">
+				本人自愿提供年度中国工业设计十佳大奖审查所需的数据资料，并为考察等相关工作提供方便。
+			  </p>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">已阅读</button>
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<!--承诺书的框结束-->

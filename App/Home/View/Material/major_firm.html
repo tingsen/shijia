@@ -1,0 +1,59 @@
+<script type="text/javascript">
+
+	$(function(){
+		// validate signup form on keyup and submit
+		$("#validate_major").validate({
+			ignore: "",
+			rules: {
+				description: {
+					required: true,
+					maxlength: 300
+				},
+				content: {
+					required: true,
+					maxlength: 300
+				},
+				fruit: {
+					required: true,
+					maxlength: 300
+				},
+			},
+			messages: {
+				description: {
+					required: "* 请输入企业简介",
+					maxlength: "* 不大于{0}个字"
+				},
+				content: {
+					required: "* 请输入设计创新体系简介",
+					maxlength: "* 不大于{0}个字"
+				},
+				fruit: {
+					required: "* 请输入重点设计创新成果",
+					maxlength: "* 不大于{0}个字"
+				},
+			}
+
+		});
+
+	})
+
+</script>
+
+<div class="form-group mb-30">
+    <div class="col-xs-12">
+    	<p class="c-huihui w-500">企业简介（企业背景、经营理念、业务特色、转型升级、品牌影响等，限300字）</p>
+		<textarea name="description" class="form-control" cols="30" rows="4">{$material['description']}</textarea>
+    </div>
+</div>
+<div class="form-group mb-30">
+    <div class="col-xs-12">
+    	<p class="c-huihui">设计创新体系简介（设计流程、设计管理、设计能力建设等，300字以内）</p>
+		<textarea name="content" class="form-control" cols="30" rows="4">{$material['content']}</textarea>
+    </div>
+</div>
+<div class="form-group mb-30">
+    <div class="col-xs-12">
+    	<p class="c-huihui">重点设计创新成果（重点创新项目、创新产品等，300字以内）</p>
+		<textarea name="fruit" class="form-control" cols="30" rows="4">{$material['fruit']}</textarea>
+    </div>
+</div>

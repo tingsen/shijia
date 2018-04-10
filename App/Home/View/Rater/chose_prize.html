@@ -1,0 +1,30 @@
+<!--局部内容-->
+<div class="clearfix pt-40">
+	<!--局部左侧内容-->
+	<div class="span-online-left">
+		<!--局部左侧链接内容-->
+		<div class="pl-20">
+			<h5 class="m-0 c-hong mb-20">评委专区</h5>
+		</div>
+		<!--局部左侧链接内容结束-->
+		<!--局部左侧图片内容-->
+		<div class="online-left-img"><img src="__PUBLIC__/images/pszq-1.png" alt=""></div>
+		<!--局部左侧链接内容结束-->
+	</div>
+	<!--局部居中内容-->
+	<div class="span-online-center">
+		<div class="sj-lunbo">
+			<!--局部居中申请列表内容-->
+			<h4 class="text-left mt-10 mb-30"><br />请选择奖项类别：</h4>
+			<div class="w-350 center-block">
+				<volist name=":prize_options()" id="prize">
+				<a href="{:U('materials', array('prize_id'=>$prize['id']))}" class="online-sq-a" val="{$prize['id']}" >{$prize['name']}</a>
+				</volist>
+			</div>
+			<!--局部居中申请列表内容结束-->
+			</div>
+		</div>
+		<include file="Base/right" />
+	</div>
+</div>
+<!--局部内容结束-->

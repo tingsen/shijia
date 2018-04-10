@@ -1,0 +1,45 @@
+<script>
+
+	$(function(){
+		//slide
+		$('#sj-{$year}').addClass('current').children('ul').show();
+		$("[name=sub_box][year={$year}][prize_id={$prize_id}]").parent().addClass('current');
+
+		
+		$('.year_box').click(function(){
+			var child = $(this).children('ul');
+			if(child.is(':hidden')){
+				child.show();
+			}else{
+				child.hide();
+			}
+		});
+
+
+	})
+</script>
+<div class="">
+	<h5 class="m-0 c-hong mb-20">历届十佳</h5>
+<ul class="clearfix online-left-ul mb-20">
+	<li class="year_box" id="sj-2013"><a href="javascript:void(0);" class="sj-ce-a">2013年度</a>
+	<ul class="clearfix">
+		<volist name=":prize_options()" id="prize">
+			<li class=""><a href="{:U('history/index', array('prize_id'=>$prize['id'], 'year'=>2013))}" name="sub_box" year="2013" prize_id="{$prize['id']}" class="sj-ce-a">{$prize['name']}</a></li>
+		</volist>
+	</ul>
+	</li>
+	<li class="year_box" id="sj-2012"><a href="javascript:void(0);" class="sj-ce-a">2012年度</a>
+	<ul class="clearfix">
+		<volist name=":prize_options()" id="prize">
+			<li class=""><a href="{:U('history/index', array('prize_id'=>$prize['id'], 'year'=>2012))}" name="sub_box" year="2012" prize_id="{$prize['id']}" class="sj-ce-a">{$prize['name']}</a></li>
+		</volist>
+	</ul>
+	</li>
+	<li class="year_box" id="sj-2011"><a href="javascript:void(0);" class="sj-ce-a">2011年度</a>
+	<ul class="clearfix">
+		<volist name=":prize_options('2011')" id="prize">
+			<li class=""><a href="{:U('history/index', array('prize_id'=>$prize['id'], 'year'=>2011))}" name="sub_box" year="2011" prize_id="{$prize['id']}" class="sj-ce-a">{$prize['name']}</a></li>
+		</volist>	</ul>
+	</li>
+</ul>
+</div>

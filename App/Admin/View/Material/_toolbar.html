@@ -1,0 +1,116 @@
+<div class="list-group clearfix">
+	<div class="btn-group">
+		年份:
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>'', 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$year=='' ? 'active':''}">全部</a>
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>2010, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$year=='2010' ? 'active':''}">2010届</a>
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>2011, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$year=='2011' ? 'active':''}">2011届</a>
+	</div>
+
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>2012, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$year=='2012' ? 'active':''}">2012届</a>
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>2013, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$year=='2013' ? 'active':''}">2013届</a>
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>2014, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$year=='2014' ? 'active':''}">2014届</a>
+	</div>
+</div>
+
+<div class="list-group clearfix">
+	<div class="btn-group">
+		奖项:
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>'', 'state'=>$state, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$prize_id=='' ? 'active':''}">全部</a>
+	</div>
+	<volist name=":prize_options()" id="prize">
+		<div class="btn-group">
+			<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize['id'], 'state'=>$state, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$prize_id==$prize['id'] ? 'active':''}">{$prize['name']}</a>
+		</div>
+	</volist>
+</div>
+
+<div class="list-group clearfix">
+	<div class="btn-group">
+		状态:
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>'', 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$state==='' ? 'active':''}">全部</a>
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>1, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$state=='1' ? 'active':''}">草稿</a>
+	</div>
+
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>2, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$state=='2' ? 'active':''}">提交</a>
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>3, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$state=='3' ? 'active':''}">审核中</a>
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>0, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$state=='0' ? 'active':''}">未通过</a>
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>10, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$state=='10' ? 'active':''}">已通过</a>
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>11, 'province'=>$province, 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$state=='11' ? 'active':''}">十佳</a>
+	</div>
+</div>
+
+<div class="list-group clearfix">
+	<div class="btn-group">
+		是否被投票:
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$province, 'voted'=>'', 'order'=>$order))}" class="btn btn-default btn-xs {:$voted==='' ? 'active':''}">全部</a>
+	</div>
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$province, 'voted'=>0, 'order'=>$order))}" class="btn btn-default btn-xs {:$voted=='0' ? 'active':''}">否</a>
+	</div>
+
+	<div class="btn-group">
+		<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$province, 'voted'=>1, 'order'=>$order))}" class="btn btn-default btn-xs {:$voted=='1' ? 'active':''}">是</a>
+	</div>
+</div>
+
+<div class="list-group clearfix">
+	<div class="btn-group">
+		地区:
+	</div>
+	<div class="btn-group">
+		<div class="btn-group">
+			<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>'', 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$province=='' ? 'active':''}">全部</a>
+		</div>
+		<volist name=":city_options()" id="city">
+			<div class="btn-group">
+				<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$city['id'], 'voted'=>$voted, 'order'=>$order))}" class="btn btn-default btn-xs {:$province==$city['id'] ? 'active':''}">{$city['name']}</a>
+			</div>		
+		</volist>
+	</div>
+</div>
+
+<div class="list-group clearfix">
+	<div class="btn-group">
+		排序:
+	</div>
+	<div class="btn-group">
+		<div class="btn-group">
+			<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$province, 'voted'=>$voted, 'order'=>''))}" class="btn btn-default btn-xs {:$order=='' ? 'active':''}">创建时间</a>
+		</div>
+		<div class="btn-group">
+			<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$province, 'voted'=>$voted, 'order'=>'vote'))}" class="btn btn-default btn-xs {:$order=='vote' ? 'active':''}">预审投票数</a>
+		</div>
+		<div class="btn-group">
+			<a href="{:U('list_p', array('year'=>$year, 'prize_id'=>$prize_id, 'state'=>$state, 'province'=>$province, 'voted'=>$voted, 'order'=>'number'))}" class="btn btn-default btn-xs {:$order=='number' ? 'active':''}">编号</a>
+		</div>
+
+	</div>
+</div>

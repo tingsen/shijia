@@ -1,0 +1,74 @@
+<script type="text/javascript">
+	$(function(){
+		$('#myCarousel').carousel({
+			interval: false
+		})
+	})
+</script>
+
+<!--局部内容-->
+<div class="clearfix pt-40">
+	<!--局部左侧内容-->
+	<div class="span-online-left">
+		<!--局部左侧链接内容-->
+		<div class="pl-20">
+			<h5 class="m-0 c-hong mb-20">评委组成</h5>
+		</div>
+		<!--局部左侧链接内容结束-->
+		<!--局部左侧图片内容-->
+		<div class="online-left-img"><img src="__PUBLIC__/images/pingwei-leftimg.png" alt=""></div>
+		<!--局部左侧链接内容结束-->
+	</div>
+	<!--局部居中内容-->
+	<div class="span-online-center2">
+		<div class="w-500 center-block">
+			<p class="c-huihui lh-30 fs-12">十佳评审团由知名院校、行业组织、专业媒体、国际奖项和经济界等权威人士组成。</p>
+			<ul class="m-0 p-0 clearfix">
+			<volist name="columns" id="vo" empty="暂时没有数据" >
+				<if condition="isset($vo['asset'])">
+					<li class="sj-pw-li">
+						<a>
+							<img src="__UPLOAD__{:$vo['asset']['file_path'].$vo['asset']['file_name']}" style="width:120px;height:150px;" title="{$vo['title']}" alt="{$vo['title']}"/>
+							<!--
+							<div class="pw-text">
+								<p>{$vo['title']}</p>
+								<p style="font-size:8px;">{$vo['content']}<span class="ml-20">{$vo['remarks']}</span></p>
+							</div>
+							-->
+						</a>
+					</li>
+				</if>	
+			</volist>
+			</ul>
+			<div>
+				<ul class="pagination">{$page}</ul>
+			</div>
+		</div>
+	</div>
+	<!--局部右侧内容-->
+	<div class="span-daright">
+		<h5 class="m-0 mb-20 fw-700"><strong>评委寄语</strong></h5>
+			<php>$content = load_block('rater_wish', true);</php>
+			<if condition="$content">
+				<div class="sj-jy-text-right">
+					<ul class="m-0 p-0">
+						<php>$s = explode('@@', $content);</php>
+						<foreach name="s" item="vo" >
+							<li class="pw-jy-li">
+								<p class="m-0 p-0">
+									<php>$m = explode('##', $vo);</php>
+									{$m[3]}
+									<br /><strong class="text-right">---{$m[0]}
+									{$m[1]}
+									<br />{$m[2]}</strong>
+								</p>
+							</li>
+						</foreach>
+					</ul>
+				</div>
+			</if>
+		</div>
+		
+	</div>
+</div>
+<!--局部内容结束-->

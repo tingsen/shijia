@@ -1,0 +1,84 @@
+<script>
+	current_page = {$current_page|intval};
+	$('#current_page').val(current_page);
+	material_ids = "{$material_ids}";
+	//左侧不动
+	//count = total_count - sj.str_length(material_ids);
+	count = total_count;
+	$('#material_ids').val(material_ids);
+	page_num = Math.ceil(count/per);
+	$('#page_num').val(page_num);
+
+	group_num = Math.ceil(page_num/per_group);
+	
+
+	current_group = Math.ceil(current_page/per_group);
+	var num = (current_page-1)*per_group+1;
+	var html = '<ul>';
+	if(current_group > 1){
+	    html+='<li><a href="javascript:void(0);" onclick="redirect_page(this)" page="'+((Math.floor(current_page/per_group)-1)*per_group+1)+'"><<</a></li>';
+	}
+	var m = (Math.ceil(current_page/per_group)-1)*per_group;
+
+	for(var n=num; n<num+per_group; n++){
+	    if(m*per<count){
+		m++;
+		
+		html+='<li><a href="javascript:void(0);" onclick="redirect_page(this)" page="'+m+'" class="'+ (current_page==m ? "current" : "") +'" >c0'+(m-1)+'1|0'+m+'0</a></li>';
+	    }
+	}
+	if(current_group<group_num){
+	    html+='<li><a href="javascript:void(0);" onclick="redirect_page(this)" page="'+(Math.ceil(current_page/per_group)*per_group+1)+'">>></a></li>';   
+	}
+	html+='</ul>';
+	$('#pager').html(html);
+	
+	//如果从入口进入，默认选中第一个参评者
+	var left_type = {$left_type};
+	if(left_type==2){
+		$('#review_standard').hide();
+		var obj = $('#left_list').find("[name='left_list']:first");
+		if(obj.length>0){
+			show_info(obj);
+		}
+
+	}
+
+</script>
+<div style="width:225px;float:left;" class="clearfix">
+<div class="span-left-225 cleatfix">
+	<div class="sj-ps-bh pull-left">
+	    <div id="pager"></div>
+		<!--
+		<ul>
+			<li><a href="javascript:void(0);" onclick="pre_page(this)" >上一页</a></li>
+			<li><a href="javascript:void(0);" onclick="next_page(this)" >下一页</a></li>
+			<li><a href="javascript:void(0);" onclick="redirect_page(this);" page="1" class="current">C001|C010</a></li>
+			<li><a href="javascript:void(0);" onclick="redirect_page(this);" page="2">C011|C020</a></li>
+			<li><a href="javascript:void(0);" onclick="redirect_page(this);" page="3">C021|C030</a></li>
+			<li><a href="javascript:void(0);">C031|C040</a></li>
+			<li><a href="javascript:void(0);">C041|C050</a></li>
+
+		</ul>
+	    -->
+	</div>
+	<div class="sj-ps-nr pull-right" id="left_list">
+		<ul>
+		<foreach name="data" item="v" >
+			<switch name="prize_id" >
+				<case value="1"><include file="_left_person" /></case>
+				<case value="2"><include file="_left_person" /></case>
+				<case value="3"><include file="_left_person" /></case>
+				<case value="4"><include file="_left_company" /></case>
+				<case value="5"><include file="_left_company" /></case>
+				<default />
+			</switch>
+		</foreach>
+		</ul>
+	</div>
+
+	
+</div>
+<!--<p class="sj-left-wll pull-left mt-10">您还有19份资料尚未浏览。</p>-->
+</div>
+

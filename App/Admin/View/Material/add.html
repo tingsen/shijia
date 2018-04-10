@@ -1,0 +1,216 @@
+<!--上传-->
+<script src="__PUBLIC__/plug/jquery.jUploader-1.01.js"></script>
+<!--编辑器-->
+<script charset="utf-8" src="__PUBLIC__/plug/kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="__PUBLIC__/plug/kindeditor/lang/zh_CN.js"></script>
+
+<script type="text/javascript">
+
+	//编辑器上传后返回信息
+	function record_asset_id(url,data){
+		if (data.error==0) {
+			//记录编辑器上传图片后记录asset_ids
+			sj.record_asset_ids(data.asset_id, 'input[name=asset_ids]');
+		}
+	}
+
+	// 全局配置（这样就不必每次初始化时都加上下面的设置）
+	$.jUploader.setDefaults({
+		cancelable: true, // 可取消上传
+		allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'], // 只允许上传图片
+		messages: {
+			upload: '上传封面',
+			cancel: '取消',
+			emptyFile: "{ file } 为空，请选择一个文件.",
+			invalidExtension: "{file} 后缀名不合法. 只有 {extensions} 是允许的.",
+			onLeave: "文件正在上传，如果你现在离开，上传将会被取消。"
+		}
+	});
+
+	//加载编辑器
+	KindEditor.ready(function(K) {
+		var options = {
+			height : "500px", //编辑器的高度为100px
+			filterMode : true, //过滤HTML代码
+			resizeMode : 1, //编辑器只能调整高度
+			uploadJson	: '{:U('Home/Upload/save_edit', array('id'=>'', 'type'=>'Material'))}',	//上传路径
+			afterUpload	:	record_asset_id //记录asset_id
+
+		};
+		var editor = K.create('textarea[name="remark"]', options);
+	});
+
+	$(function(){
+
+		//初始化把cover_id设为0
+		$("input[name='cover_id']").val('');
+		$("input[name='asset_ids']").val('');
+
+		$.jUploader({
+			button: 'upload_cover', // 这里设置按钮id
+			action: '{:U('Home/Upload/save_cover', array('id'=>'', type=>'Material'))}', // 这里设置上传处理接口
+			// 开始上传事件
+			onUpload: function (fileName) {
+				$('#tip').text('正在上传 ' + fileName + ' ...');
+			},
+
+			// 上传完成事件
+			onComplete: function (fileName, response) {
+				if(response.state)
+				{
+					$('#tip').text(fileName + ' 上传成功。');
+					//记录封面id
+					$("input[name='cover_id']").val(response.asset_id);
+					var url = response.result.savepath + response.result.savename;
+					$('#show_cover').html('<img src="__UPLOAD__'+ url +'" width="120" />');
+				}else{
+					$('#tip').text(response.info);
+					$('#show_cover').html('');
+				}
+			},
+			// 取消上传事件
+			onCancel: function (fileName) {
+				$('#tip').text(fileName + ' 上传取消。');
+			},
+			// 系统信息显示（例如后缀名不合法）
+			showMessage: function (message) {
+				$('#tip').text(message);
+			}
+		});
+
+
+	})
+</script>
+
+<div class="row">
+	<div class="col-xs-2">
+		<include file="Base/_left_nav" />
+	</div>
+	<div class="col-xs-10">
+		<include file="_toolbar" />
+
+		<div class="guide-box">
+			<form action="{:U('create')}" method="post" class="form-horizontal">
+
+				<input type="hidden" name="cover_id" value="" />
+				<input type="hidden" name="asset_ids" value="" />
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">年份(届):</label>
+					<div class="col-sm-10">
+						<select name="year" class="form-control">
+							<option value="2011" >2011</option>			
+							<option value="2012" >2012</option>	
+							<option value="2013" >2013</option>			
+							<option value="2014" >2014</option>	
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">奖项:</label>
+					<div class="col-sm-10">
+						<select name="prize_id" class="form-control">
+							<volist name=":prize_options()" id="prize">
+								<option value="{$prize['id']}" >{$prize['name']}</option>
+							</volist>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">关联用户ID:</label>
+					<div class="col-sm-10">
+						<input type="text" name="user_id" class="form-control" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">编号:</label>
+					<div class="col-sm-10">
+						<input type="text" name="m_id" class="form-control" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">名称(公司/个人):</label>
+					<div class="col-sm-10">
+						<input type="text" name="name" class="form-control" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">所在公司:</label>
+					<div class="col-sm-10">
+						<input type="text" name="unit" class="form-control" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">网址:</label>
+					<div class="col-sm-10">
+						<input type="text" name="web_url" class="form-control" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">封面(用户头像/log):</label>
+					<div class="col-sm-10">
+						<div id="upload_cover" class="btn btn-success">
+							<span></span>
+						</div> <!-- div里的span必须保留，用来放文字的 -->
+				        <p>
+							<span id="tip" class="help-block">请选择图片</span>
+						</p>
+				        <p>
+							<span id="tip" class="help-block red">尺寸要求:  (个人头像)100x140, (公司LOG)125x55</span>
+						</p>
+						
+						<!--显示封面区域-->
+					    <div id="show_cover"></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">职务(个人用):</label>
+					<div class="col-sm-10">
+						<input type="text" name="position" class="form-control" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">内容:</label>
+					<div class="col-sm-10">
+						<textarea name="remark" class="form-control"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">排序:</label>
+					<div class="col-sm-10">
+						<input type="text" name="sort" class="form-control" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">状态:</label>
+					<div class="col-sm-10">
+						<input type="radio" name="state" value="0" />未通过<span class="m-10"></span>
+						<input type="radio" name="state" value="1" checked />草稿<span class="m-10"></span>
+						<input type="radio" name="state" value="2" />提交<span class="m-10"></span>
+						<input type="radio" name="state" value="3" />审核中<span class="m-10"></span>
+						<input type="radio" name="state" value="10" />已通过<span class="m-10"></span>
+						<input type="radio" name="state" value="11" />十佳<span class="m-10"></span>
+					</div>
+				</div>
+
+				  <div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+					  <a href="{:U('index')}" class="btn btn-default">取消</a>
+					  <button type="submit" class="btn btn-primary">保存</button>
+					</div>
+				  </div>
+		  </form>
+		</div>
+	</div>
+</div>

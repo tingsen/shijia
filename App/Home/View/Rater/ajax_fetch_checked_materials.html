@@ -1,0 +1,28 @@
+<div class="span-right-225">
+	<div class="sj-ps-md">
+		<div class="sj-ps-right-top">预审入围名单</div>
+		<ul>
+		<foreach name="materials" item="v" >
+			<switch name="data['prize_id']" >
+				<case value="1"><include file="_right_person" /></case>
+				<case value="2"><include file="_right_person" /></case>
+				<case value="3"><include file="_right_person" /></case>
+				<case value="4"><include file="_right_company" /></case>
+				<case value="5"><include file="_right_company" /></case>
+				<default />
+			</switch>
+		</foreach>	
+		</ul>
+
+		<!--如果评委是已提交状态或不在此奖项范围内,则不显示-->
+		<if condition="($data['rater_state'] eq 1 AND in_array($v['prize_id'], $data['rater_prizes']) AND $data['prize_state'] eq 0)">
+			<div class="sj-ps-anniu">
+				<a class="btn btn-hui btn-sm" href="javascript:alert('保存成功!');">保存</a>
+				<a href="javascript:void(0);" onclick="ajax_submit_btn(this)" class="ajax-hash btn btn-hui btn-sm" name="ajax_submit_btn" prize_id="{$data['prize_id']}">提交</a>
+			</div>
+		</if>
+		<a href="" class="sj-ps-an-a"></a>
+	</div>
+
+</div>
+

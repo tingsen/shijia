@@ -1,0 +1,33 @@
+<div class="row">
+	<div class="col-xs-2">
+		<include file="Base/_left_nav" />
+	</div>
+	<div class="col-xs-10">
+		<include file="_toolbar" />
+
+		<h5>注册信息(数量)</h5>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>注册用户</th>
+					<th>评委</th>
+					<th>申请奖项</th>
+					<th>新闻</th>
+					<th>推广提升</th>
+					<th>附件(图片)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{$collect['user_count']}</td>
+					<td>{$collect['rater_count']}	</td>
+					<td>{$collect['material_count']}</td>
+					<td>{$collect['post_count']}</td>
+					<td>{$collect['promotion_count']}</td>
+					<td>{$collect['asset_count']}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+

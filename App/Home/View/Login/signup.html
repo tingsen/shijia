@@ -1,0 +1,121 @@
+<script src="__PUBLIC__/plug/jquery.validate.min.js"></script>
+<script type="text/javascript">
+
+	$(function(){
+		// validate signup form on keyup and submit
+		$("#validate_form").validate({
+			ignore: "",
+			rules: {
+				email: {
+					required: true,
+					email: true,
+					remote: {
+						type: 'POST',
+						url: "{:U('ajax_validate_email')}",
+						data: {
+							email: function(){return $("[name='email']").val()}
+						}
+					}
+				},
+				nickname: {
+					required: true,
+					rangelength: [2, 12]
+				},
+				password: {
+					required: true
+				},
+				repassword: {
+					required: true,
+					equalTo: "[name='password']"
+				}
+			},
+			messages: {
+				email: {
+					required: "* 请输入邮箱",
+					email: "* 邮箱格式不正确",
+					remote: "* 邮箱已存在！"
+				},
+				nickname: {
+					required: "* 请输入昵称",
+					rangelength: "* 长度不能少于{0}大于{1}个字符"
+				},
+				password: {
+					required: "* 请输入密码"
+				},
+				repassword: {
+					required: "* 确认密码不能为空",
+					equalTo: "* 确认密码不正确"
+				}
+			}
+
+		});
+
+	})
+</script>
+<!--局部内容-->
+<div class="clearfix pt-40">
+	<!--局部左侧内容-->
+	<div class="span-online-left">
+		<!--局部左侧链接内容-->
+		<ul class="clearfix online-left-ul mb-20">
+			<li><a href="" class="sj-ce-a">在线报名</a></li>
+		</ul>
+		<!--局部左侧链接内容结束-->
+		<!--局部左侧图片内容-->
+		<div class="online-left-img"><img src="__PUBLIC__/images/online-leftimg.png" alt=""></div>
+		<!--局部左侧链接内容结束-->
+	</div>
+	<!--局部居中内容-->
+	<div class="span-online-center">
+		<div class="sj-lunbo">
+			<!--局部居中面包屑导航内容-->
+			<div class="nav-mbx mb-50">
+				<a class="nav-mbx-a nav-mbx-first current">1 登录注册</a>
+				<a class="nav-mbx-a">2 申请奖项选择</a>
+				<a class="nav-mbx-a">3 基础信息填写</a>
+				<a class="nav-mbx-a">4 文件下载</a>
+			</div>
+			<!--局部居中面包屑导航内容结束-->
+			<!--局部居中注册列表内容-->
+			<div class="w-350 center-block">
+				<form action="{:U('home/login/create')}" class="form-horizontal" id="validate_form" role="form" method="post">
+				  <div class="form-group">
+				    <label for="inputEmail3" class="c-huihui col-xs-3 control-label">电子邮件:</label>
+				    <div class="col-xs-9">
+				      <input type="email" class="form-control" id="inputEmail3" name="email">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="nickname" class="c-huihui col-xs-3 control-label">昵称:</label>
+				    <div class="col-xs-9">
+				      <input type="text" class="form-control" id="nickname" name="nickname">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="inputPassword3" class="c-huihui col-xs-3 control-label">密码:</label>
+				    <div class="col-xs-9">
+				      <input type="password" class="form-control" id="inputPassword3" name="password">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="rinputPassword3" class="c-huihui col-xs-3 control-label">确认密码:</label>
+				    <div class="col-xs-9">
+				      <input type="password" class="form-control" id="rinputPassword3" name="repassword">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-4 col-xs-8">
+					<!--
+					  <a href="{:U('home/login/index')}" class="btn btn-hui w-90">登陆</a>
+					 -->
+				      <button type="submit" class="btn btn-danger w-90">注册</button>
+				    </div>
+				  </div>
+				</form>
+			</div>
+		</div>
+		</div>
+		<include file="Base/right" />
+	  </div>
+</div>
+<!--局部内容结束-->

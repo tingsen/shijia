@@ -1,0 +1,243 @@
+
+<script type="text/javascript">
+
+	//初始化变量
+	var rater_state = {$rater['state']|intval};
+	var rater_prizes = "{$rater['prize_ids']}";
+	var prize_state = {$result['prize_state']|intval};
+	var prize_id = {$result['prize_id']|intval};
+	var total_count = {$result['total_count']|intval};
+	var per = 10;	//每页显示几条
+	var per_group = 5;	//每组显示多少页
+	var page_num;
+	var material_ids;
+	var count;
+	var current_page = 1;
+	var current_group = 1;
+
+	//ajax加载申请 列表
+	function fetch_materials(prize_id, material_ids, page, per, type) {
+		var url = "{:U('rater/ajax_fetch_materials')}";
+		$.post(url, { per: per, page: page, prize_id: prize_id, material_ids: material_ids, type: type, stamp: Math.random() }, function(data){
+			//加载申请列表页
+			$('#show_material_box').html(data);	
+
+		});
+	}
+
+	//ajax加载已选中的申请列表
+	function fetch_checked_materials(prize_id, material_ids, rater_prizes, rater_state, type) {
+		var url = "{:U('rater/ajax_fetch_checked_materials')}";
+		$.post(url, { prize_id: prize_id, material_ids: material_ids, rater_prizes: rater_prizes, rater_state: rater_state, prize_state: prize_state, type: type, stamp: Math.random() }, function(data){
+			//加载已选过的申请列表页
+			$('#show_checked_material_box').html(data);	
+
+		});
+	}
+
+	//ajax加载详情
+	function show_info(obj) {
+		var id = $(obj).attr('val');
+		var url = "{:U('rater/ajax_fetch_detailed')}";
+		$.post(url, { id: id, prize_id: prize_id, rater_state: rater_state, rater_prizes: rater_prizes, prize_state: prize_state, type: 1, stamp: Math.random() }, function(data){
+			//加载详情页
+			$('#show_info').html(data);
+		});
+	}
+
+	//ajax通过／淘汰申请者
+	function ajax_set_applicant(obj) {
+		var m_id = $(obj).attr('val');
+		var type = $(obj).attr('event');
+		var m_ids = $('#material_ids').val();
+		var p_id = $(obj).attr('prize_id');
+		var r_id = {$rater['id']|intval};
+		if(type=='add'){
+			//记录material_ids
+			if(m_ids==''){
+				m_ids = m_id;
+			}else{
+				var ids_arr = m_ids.split(',');
+				var is_index_key = sj.in_array(ids_arr,m_id);
+				if(is_index_key==-1){
+					ids_arr.push(m_id);
+				}else{
+					alert('已入围');
+					return false;
+				}
+				m_ids = ids_arr.join(',');
+			}
+		}else if(type='drop'){
+			//记录material_ids
+			var ids_arr = m_ids.split(',');
+			var is_index_key = sj.in_array(ids_arr,m_id);
+			ids_arr.splice(is_index_key,1);
+			m_ids = ids_arr.join(',');
+		}
+
+		var url = "{:U('Rater/ajax_set_rater_record')}";
+		$.post(url, { m_ids: m_ids, r_id: r_id, p_id: p_id, type: type, stamp: Math.random() }, function(data){
+			if(data.state==1){
+				if(type=='add'){
+					alert('入围成功!');
+					//自动跳到下一个
+					//next_detail(obj);
+					$("#material_ids").val(m_ids);
+				}
+
+				//重新加载左右侧列表
+				current_page = $('#current_page').val();
+				fetch_materials({$result.prize_id}, m_ids, current_page, per, 1);
+				fetch_checked_materials({$result.prize_id}, m_ids, rater_prizes, rater_state, 1);
+			}else{
+				alert('操作失败!');
+			}
+		});
+	}
+
+	//评委提交按钮,结束评审
+	function ajax_submit_btn(obj) {
+		var m_ids = $('#material_ids').val();
+		var id_arr = m_ids.split(',');
+		var prize_id = $(obj).attr('prize_id');
+		if(!confirm('入围名单一经提交，将不能修改!')){
+			return false;
+		}
+		if(id_arr.length > 10) {
+			alert('您选择的入围名单不能超过10个');
+			return false;
+		}
+		var r_id = {$rater.id|intval};
+		var url = "{:U('rater/ajax_review')}";
+		$.post(url, {r_id: r_id, m_ids: m_ids, prize_id: prize_id, type: 1, stamp: Math.random()}, function(data){
+			if(data.state==1){
+				alert(data.info);
+				window.location.href = "{:U('rater/chose_prize')}";
+			}else{
+				alert(data.info);
+			}
+		});
+	}
+
+  //上一页方法
+  function pre_page(obj)
+  {
+	current_page = $('#current_page').val();
+    if(current_page>1)
+    {
+      current_page--;
+	  material_ids = $('#material_ids').val();
+	  fetch_materials(prize_id, material_ids, current_page, per, 1);
+      $('#next_button').addClass('btn-popup');
+    }else
+    {
+      $('#pev_button').removeClass('btn-popup');
+    }
+  }
+
+  //下一页方法
+  function next_page(obj)
+  {
+    current_page = $('#current_page').val();
+    material_ids = $('#material_ids').val();
+    page_num = $('#page_num').val();
+    if(current_page<page_num)
+    {
+      current_page++;
+
+	  fetch_materials(prize_id, material_ids, current_page, per, 1);
+      $('#pev_button').addClass('btn-popup');
+    }else
+    {
+      $('#next_button').removeClass('btn-popup');
+    }
+  }
+
+
+//指定跳到某一页
+function redirect_page(obj) {
+    var page = $(obj).attr('page');
+    material_ids = $('#material_ids').val();
+    fetch_materials(prize_id, material_ids, page, per, 1);
+}
+
+//开始筛选
+function init_list(){
+	//加载申请列表
+	fetch_materials({$result.prize_id}, '{$result.material_ids}', current_page, per, 2);
+	//加载右侧已保存的申请信息列表
+	fetch_checked_materials({$result.prize_id}, '{$result.material_ids}', rater_prizes, rater_state, 1);
+	//默认选则第一个
+
+}
+
+//下一个详情
+function next_detail(obj){
+	var current_id = $(obj).attr('val');
+	var next_obj = $('#left_list').find("[name='left_list'][val="+ current_id +"]").parent('li').next().children('a');
+	if(next_obj.length>0){
+		//alert(next_obj.attr('val'));
+		show_info(next_obj);
+	}else{
+		var current_page = $('#current_page').val();
+		var total_page = $('#page_num').val();
+		if(total_page>current_page){
+			material_ids = $('#material_ids').val();
+			var next_page = parseInt(current_page) + 1;
+			//加载申请列表
+			fetch_materials(prize_id, material_ids, next_page, per, 2);
+		}else{
+			alert('已经是最后一个了');
+		}
+	}
+
+}
+
+//刷新当前页面
+function reload_page(){
+	window.location.reload();
+}
+
+	$(function(){
+	    //给material_ids初始值
+	    $("#material_ids").val("{$result['material_ids']}");
+
+	})
+
+
+</script>
+
+<input type="hidden" name="material_ids" id="material_ids" value="" />
+<input type="hidden" name="current_page" id="current_page" value="1" />
+<input type="hidden" name="current_group" id="current_group" value="1" />
+<input type="hidden" name="count" id="count" value="" />
+<input type="hidden" name="page_num" id="page_num" value="" />
+<div class="clearfix pt-40">
+	<!--左侧全部申请者列表-->
+	<div id="show_material_box"></div>
+	<!--中间详情-->
+	<div id="show_info">
+		<div class="span-left-480 center-block" id="review_standard">
+			<div class="span-center-450 center-block">
+        <div class="sj-ps-title mb-30">{:system_value('current_year')}年度中国工业设计{$result['prize_id']|prize_name}组(申报数量{$result['total_count']}{$result['prize_id']|prize_last_unit})</div><br />
+				<switch name="result['prize_id']" >
+					<case value="1"><include file="standard_educate" /></case>
+					<case value="2"><include file="standard_elite" /></case>
+					<case value="3"><include file="standard_designer" /></case>
+					<case value="4"><include file="standard_company" /></case>
+					<case value="5"><include file="standard_firm" /></case>
+					<default />
+				</switch>
+				<if condition="$result['total_count'] gt 0">
+					<div class="text-center">
+						<a class="btn btn-danger w-90" href="javascript:void(0);" onclick="init_list()">开始预审</a>
+					</div>
+				</if>
+			</div>
+		</div>
+	</div>
+	<!--右侧已选申请者列表-->
+	<div id="show_checked_material_box"></div>
+</div>
+<!--局部内容结束-->
+

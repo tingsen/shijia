@@ -1,0 +1,122 @@
+<script src="__PUBLIC__/plug/jquery.validate.min.js"></script>
+<script type="text/javascript">
+
+	$(function(){
+		// validate signup form on keyup and submit
+		$("#validate_contact").validate({
+			ignore: "",
+			rules: {
+				contact_name: {
+					required: true,
+				},
+				contact_tel: {
+					required: true,
+				},
+				contact_email: {
+					required: true,
+					email: true
+				},
+			},
+			messages: {
+				contact_name: {
+					required: "* 请输入联系人姓名",
+				},
+				contact_tel: {
+					required: "* 请输入联系人电话",
+				},
+				contact_email: {
+					required: "* 请输入联系人邮箱",
+					email: "* 邮箱格式不正确"
+				},
+			}
+
+		});
+
+	})
+</script>
+
+<!--
+<if condition="$prize == 1">
+	<a href="{:U('major',array('m_id'=>$material_id))}">上一页</a>
+<elseif condition="$prize == 2"/>
+	<a href="{:U('major',array('m_id'=>$material_id))}">上一页</a>
+<elseif condition="$prize == 3"/>
+	<a href="{:U('major',array('m_id'=>$material_id))}">上一页</a>
+<elseif condition="$prize == 4"/>
+	<a href="{:U('major',array('m_id'=>$material_id))}">上一页</a>
+<elseif condition="$prize == 5"/>
+	<a href="{:U('major',array('m_id'=>$material_id))}">上一页</a>
+</if>
+-->
+<!--局部内容-->
+<div class="clearfix pt-40">
+	<!--局部左侧内容-->
+	<div class="span-online-left">
+		<!--局部左侧链接内容-->
+		<ul class="clearfix online-left-ul mb-20">
+			<li><a href="" class="sj-ce-a">在线报名</a></li>
+		</ul>
+		<!--局部左侧链接内容结束-->
+		<!--局部左侧图片内容-->
+		<div class="online-left-img"><img src="__PUBLIC__/images/online-leftimg.png" alt=""></div>
+		<!--局部左侧链接内容结束-->
+	</div>
+	<!--局部居中内容-->
+	<div class="span-online-center">
+		<div class="sj-lunbo">
+			<!--局部居中面包屑导航内容-->
+			<div class="nav-mbx mb-50">
+				<a class="nav-mbx-a nav-mbx-first">1 登录注册</a>
+				<a class="nav-mbx-a">2 申请奖项选择</a>
+				<a class="nav-mbx-a current">3 基础信息填写</a>
+				<a class="nav-mbx-a">4 文件下载</a>
+			</div>
+			<!--局部居中基本信息3列表内容-->
+			<div class="sj-jbxx3">
+				<p class="c-huihui mb-30">{:system_value('current_year')}年度中国工业设计{$material['prize_id']|prize_name}基础信息填写：</p>
+				<form action="{:U('home/material/save')}" class="form-horizontal" id="validate_contact" role="form" method="post">
+				<input type="hidden" name="material_id" value="{$material_id}" />
+				<input type="hidden" name="prize_id" value="{$material['prize_id']}" />
+				  <div class="form-group">
+					<label for="inputEmail3" class="c-huihui col-xs-3 control-label">联系人</label>
+					<div class="col-xs-6">
+					  <input type="text" name="contact_name" value="{$material['contact_name']}" class="form-control" >
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label for="" class="c-huihui col-xs-3 control-label">手机</label>
+					<div class="col-xs-6">
+					  <input type="text" name="contact_tel" value="{$material['contact_tel']}" class="form-control" >
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label for="" class="c-huihui col-xs-3 control-label">邮箱</label>
+					<div class="col-xs-6">
+					  <input type="text" name="contact_email" value="{$material['contact_email']}" class="form-control" >
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label for="" class="c-huihui col-xs-3 control-label">推荐单位</label>
+					<div class="col-xs-9">
+					  <input type="text" name="introduction" value="{$material['introduction']}" class="form-control">
+					</div>
+				  </div>
+				  <div class="form-group mb-30">
+					<div class="col-sm-offset-3 col-xs-8">
+					  <p class="c-huihui">（如有推荐单位，请填写）</p>
+					</div>
+				  </div>
+				  <div class="form-group">
+					<div class="col-sm-offset-4 col-xs-8">
+					  <a href="{:U('home/material/major',array('m_id'=>$material_id))}" class="btn btn-danger w-90">上一页</a>
+					  <input type="submit" name="submit" value="提交" class="btn btn-danger w-90"/>
+					</div>
+				  </div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<include file="Base/right" />
+</div>
+</div>
+<!--局部内容结束-->

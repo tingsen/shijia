@@ -1,0 +1,25 @@
+<div class="span-left-480">
+	<form id="" class="form-horizontal" method="post" role="form" action="" novalidate="novalidate">
+		<div class="span-center-450">
+			<div class="sj-ps-title">{:system_value('current_year')}年度中国工业设计{$data['prize_id']|prize_name}组</div><br />
+			<switch name="data['prize_id']" >
+				<case value="1"><include file="info_educate" /></case>
+				<case value="2"><include file="info_elite" /></case>
+				<case value="3"><include file="info_designer" /></case>
+				<case value="4"><include file="info_company" /></case>
+				<case value="5"><include file="info_firm" /></case>
+				<default />
+			</switch>
+			<div class="form-group">
+				<!--如果评委是已提交状态或不在此奖项范围内,则不显示-->
+				<if condition="($data['rater_state'] eq 1 AND in_array($material['prize_id'], $data['rater_prizes']) AND $data['prize_state'] eq 0)">
+					<div class="text-center">
+						<a href="javascript:void(0);" onclick="ajax_set_applicant(this);" prize_id="{$material['prize_id']}" val="{$material['id']}" event="add" class="btn btn-danger w-90">入围</a>
+						<a href="javascript:void(0);" onclick="next_detail(this)" val="{$material['id']}" class="btn btn-danger w-90">下一个</a>
+					</div>
+				</if>
+			</div>
+		</div>
+	</form>
+</div>
+

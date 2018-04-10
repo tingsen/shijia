@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-compatible" content="IE=edge,chrome=1" />
+		<title>{$page_title|page_title}</title>
+
+		<!-- 最新 Bootstrap 核心 CSS 文件 -->
+	  <link media="screen" rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+
+	  <link href="__PUBLIC__/css/custom.css" media="screen" rel="stylesheet" type="text/css"/>
+	  <link href="__PUBLIC__/css/shijia.css" media="screen" rel="stylesheet" type="text/css" />
+
+	  <script src="__PUBLIC__/js/jquery_1.10.2.js"></script>
+	  <script src="__PUBLIC__/js/bootstrap.min.js"></script>
+	  <script src="__PUBLIC__/js/base.js"></script>
+	  <script src="__PUBLIC__/plug/bootstrap-hover-dropdown.min.js"></script>
+	  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	  <!--<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>-->	
+	<script type="text/javascript">
+		<!--
+		$(function(){
+		  //初始化
+		  sj.initial();
+		  
+		});
+		//-->
+	</script>
+	</head>
+	<body>
+		<!--最外侧div框-->
+		<div class="sj-w">
+			<!--最上面横条-->
+			<div class="sj-wtop"></div>
+			<!--居中内容区container-->
+			<div class="container plr-25 bg-w">
+				<include file="Base/header" />
+				<div id="alert_box" class="hide-js"><h1>aaaaaaaaaaaaaa</h1></div>
+			    <!--主体-->
+			    {__CONTENT__}
+			</div>
+			<include file="Base/footer" />
+		</div>
+		<!--最外侧div框结束^-->
+  </body>
+</html>

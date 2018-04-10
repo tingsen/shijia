@@ -1,0 +1,66 @@
+<div class="list-group">
+	<label class="list-group-header">系统管理控制台</label>
+	<ul class="nav nav-list bs-docs-sidenav mt-5">
+		<li class="{:controller()=='index' ? 'active' : ''}">
+		    <a href="{:U('admin/index/index')}">概况</a>
+		</li>
+		<if condition="is_admin()">
+		    <li class="{:controller()=='system' ? 'active' : ''}">
+			<a href="{:U('admin/system/index')}">系统设置</a>
+		    </li>
+		</if>
+	</ul>    
+	<label class="list-group-header">用户管理</label>
+	<ul class="nav nav-list bs-docs-sidenav mt-5">
+		<if condition="is_admin()">
+		    <li class="{:controller()=='user' ? 'active' : ''}">
+			    <a href="{:U('admin/user/index')}">用户列表</a>
+		    </li>
+		    <li class="{:controller()=='rater' ? 'active' : ''}">
+			    <a href="{:U('admin/rater/index')}">评委列表</a>
+		    </li>
+		    <li class="{:controller()=='material' ? 'active' : ''}">
+			    <a href="{:U('admin/material/index')}">申请列表</a>
+		    </li>
+		</if>
+
+	</ul>
+
+	<label class="list-group-header">分类管理</label>
+	<ul class="nav nav-list bs-docs-sidenav mt-5">
+		<if condition="is_admin()">
+		    <li class="{:controller()=='category' ? 'active' : ''}">
+			    <a href="{:U('admin/category/index')}">分类列表</a>
+		    </li>
+		</if>
+	</ul>
+
+	<label class="list-group-header">内容管理</label>
+	<ul class="nav nav-list bs-docs-sidenav mt-5">
+		<li class="{:controller()=='post' ? 'active' : ''}">
+			<a href="{:U('admin/post/index')}">内容列表</a>
+		</li>
+	</ul>
+
+	<label class="list-group-header">栏目管理</label>
+	<ul class="nav nav-list bs-docs-sidenav mt-5">
+		<if condition="is_admin()">
+		    <li class="{:controller()=='columnspace' ? 'active' : ''}">
+			    <a href="{:U('admin/ColumnSpace/index')}">栏目位列表</a>
+		    </li>
+		</if>
+		<li class="{:controller()=='column' ? 'active' : ''}">
+			<a href="{:U('admin/column/index')}">栏目列表</a>
+		</li>
+		<li class="{:controller()=='block' ? 'active' : ''}">
+			<a href="{:U('admin/block/index')}">区块列表</a>
+		</li>
+	</ul>
+
+	<label class="list-group-header">附件管理</label>
+	<ul class="nav nav-list bs-docs-sidenav mt-5">
+		<li class="{:controller()=='asset' ? 'active' : ''}">
+			<a href="{:U('admin/asset/index')}">附件列表</a>
+		</li>
+	</ul>
+</div>

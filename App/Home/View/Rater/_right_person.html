@@ -1,0 +1,13 @@
+<li id="material_checked_box_{$v.id}" class="clearfix">
+	<span class="sj-user-img">
+		<img src="__UPLOAD__{:$v['avatar']['file_path'].$v['avatar']['file_name']}" alt="{$v['name']}" width="34">
+	</span>
+	<span class="sj-ps-user-bh">
+		{$v.m_id} <a href="javascript:void(0);" class="ajax-hash" onclick="show_info(this);" val="{$v.id}">{$v.name}</a><br />{$v.unit|msubstr=###,0,8,'utf-8',true}<br /><!--用户简介-->{$v.position|msubstr=###,0,8,'utf-8',true}
+	</span>
+	<!--如果评委是已提交状态或不在此奖项范围内,则不显示-->
+	<if condition="($data['rater_state'] eq 1 AND in_array($v['prize_id'], $data['rater_prizes']) AND $data['prize_state'] eq 0)">
+		<a herf="javascript:void(0);" onclick="ajax_set_applicant(this)" val="{$v.id}" prize_id="{$data['prize_id']}" event="drop" class="btn btn-hui btn-xs sj-ps-ann">删除</a>
+	</if>
+</li>
+
