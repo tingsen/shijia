@@ -9,8 +9,9 @@ php5.6
 mysql
 thinkphp3.2
 
-
 NGINX配置
+
+
 
 server {
           listen 80;
