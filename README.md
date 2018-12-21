@@ -11,6 +11,7 @@ thinkphp3.2
 
 
 NGINX配置
+
 server {
           listen 80;
           root /var/www/shijia;
